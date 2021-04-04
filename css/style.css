@@ -1,0 +1,8 @@
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    height: 5000px;
+    background: url(../img/wine_sqc_light/red-wine-pouring000.jpg) no-repeat fixed;
+}

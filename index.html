@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A glass of Wine</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div style="height: 0; width: 0" id="preload_div"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+
+    <script>
+
+
+        img_count = 861
+        for (let i = 0; i < img_count; i++) {
+            document.getElementById("preload_div").innerHTML += "<link rel=\"preload\" href=\"img/wine_sqc_light/red-wine-pouring" + ('0000'+ i).slice(-3) + ".jpg\" as=\"image\">";
+        }
+
+        window.onscroll = function (e) {
+            const n_img = ('0000' + Math.floor(scrollY / 5.8).toString()).slice(-3);
+            document.body.style.backgroundImage = "url('img/wine_sqc/red-wine-pouring"+n_img+".jpg')";
+            console.log(n_img);
+        }
+
+
+        // ScrollTrigger.addEventListener("scrollStart", () => {
+        //     //document.body.style.backgroundImage = "url('img/wine_sqc_light/red-wine-pouring"+n_img+".jpg')";
+        //
+        //     const n_img = ('0000' + Math.floor(scrollY / 10).toString()).slice(-3);
+        //     document.body.style.backgroundImage = "url('img/wine_sqc_light/red-wine-pouring"+n_img+".jpg')";
+        //     console.log(n_img);
+        //
+        //
+        //     while (ScrollTrigger.isScrolling()) {
+        //         const n_img = toString('0000' + Math.floor(scrollY / 10)).slice(-3);
+        //         document.body.style.backgroundImage = "url('img/wine_sqc_light/red-wine-pouring"+n_img+".jpg')";
+        //         console.log(n_img);
+        //     }
+        //
+        // });
+
+    </script>
+</body>
+</html>
