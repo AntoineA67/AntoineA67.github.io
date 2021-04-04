@@ -15,19 +15,21 @@
         const canvas = document.getElementById("wine_glass");
         const context = canvas.getContext("2d");
         const img_count = 861;
-
+        const img_path = "img/wine_sqc/red-wine-pouring"
+        images = [null]
 
         //const images = [null];
 
         const preloadImages = () => {
              for (let i = 0; i < img_count; i++) {
-                 const img = new Image();
-                 img.src = 'img/wine_sqc_light/red-wine-pouring'+ ('000' + i.toString()).slice(-3) +'.jpg';
+                 images[i] = new Image();
+                 images[i].src = img_path + ('000' + i.toString()).slice(-3) +'.jpg';
              }
         };
 
+
         const img = new Image()
-        img.src = 'img/wine_sqc_light/red-wine-pouring000.jpg';
+        img.src = img_path + '000.jpg';
         canvas.width=1158;
         canvas.height=770;
         img.onload=function(){
@@ -40,7 +42,7 @@
 
             const img = new Image();
             console.log(index);
-            img.src = 'img/wine_sqc_light/red-wine-pouring'+ index +'.jpg';
+            img.src = img_path + index +'.jpg';
             context.drawImage(img, 0, 0);
         }
 
@@ -52,11 +54,11 @@
 
         preloadImages()
 
-        // window.onscroll = function (e) {
-        //     const n_img = ('0000' + Math.floor(scrollY / 5.8).toString()).slice(-3);
-        //     document.body.style.backgroundImage = "url('img/wine_sqc/red-wine-pouring"+n_img+".jpg')";
-        //     console.log(n_img);
-        // }
+         // window.onscroll = function (e) {
+         //     const n_img = ('0000' + Math.floor(scrollY / 5.8).toString()).slice(-3);
+         //     updateImage(n_img);
+         //     console.log(n_img + "scroll");
+         // }
 
 
         // ScrollTrigger.addEventListener("scrollStart", () => {
