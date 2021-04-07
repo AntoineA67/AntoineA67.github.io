@@ -30,13 +30,11 @@
 
         const img = new Image()
         img.src = img_path + '000.jpg';
-        canvas.width=1158;
-        canvas.height=770;
+        canvas.width=window.innerWidth;
+        canvas.height=window.outerHeight;
         img.onload=function(){
             context.drawImage(img, 0, 0);
         }
-
-        //requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 5.8).toString()).slice(-3)))
 
         const updateImage = index => {
 
@@ -49,33 +47,10 @@
 
         window.addEventListener('scroll', () => {
 
-            requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 5.8).toString()).slice(-3)))
+            requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 4.4).toString()).slice(-3)))
         });
 
         preloadImages()
-
-         // window.onscroll = function (e) {
-         //     const n_img = ('0000' + Math.floor(scrollY / 5.8).toString()).slice(-3);
-         //     updateImage(n_img);
-         //     console.log(n_img + "scroll");
-         // }
-
-
-        // ScrollTrigger.addEventListener("scrollStart", () => {
-        //     //document.body.style.backgroundImage = "url('img/wine_sqc_light/red-wine-pouring"+n_img+".jpg')";
-        //
-        //     const n_img = ('0000' + Math.floor(scrollY / 10).toString()).slice(-3);
-        //     document.body.style.backgroundImage = "url('img/wine_sqc_light/red-wine-pouring"+n_img+".jpg')";
-        //     console.log(n_img);
-        //
-        //
-        //     while (ScrollTrigger.isScrolling()) {
-        //         const n_img = toString('0000' + Math.floor(scrollY / 10)).slice(-3);
-        //         document.body.style.backgroundImage = "url('img/wine_sqc_light/red-wine-pouring"+n_img+".jpg')";
-        //         console.log(n_img);
-        //     }
-        //
-        // });
 
     </script>
 </body>
