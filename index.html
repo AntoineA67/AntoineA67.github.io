@@ -16,21 +16,21 @@
         const context = canvas.getContext("2d");
         const img_count = 861;
         const img_path = "img/wine_sqc/red-wine-pouring"
-        images = [null]
+        let images = [null]
 
-        //const images = [null];
-
-        const preloadImages = () => {
-             for (let i = 0; i < img_count; i++) {
+        function preloadImages (min, max) {
+             for (let i = min; i < max; i++) {
                  images[i] = new Image();
                  images[i].src = img_path + ('000' + i.toString()).slice(-3) +'.jpg';
+                 console.log('preload '+i)
              }
-        };
+             console.log("000000");
+        }
 
 
         const img = new Image()
         img.src = img_path + '000.jpg';
-        canvas.width=window.outerHeight;
+        canvas.width=window.outerWidth;
         canvas.height=window.outerHeight;
         img.onload=function(){
             context.drawImage(img, 0, 0);
@@ -39,18 +39,23 @@
         const updateImage = index => {
 
             const img = new Image();
-            console.log(index);
+            // console.log(index);
             img.src = img_path + index +'.jpg';
             context.drawImage(img, 0, 0);
         }
 
 
         window.addEventListener('scroll', () => {
-
             requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 4.4).toString()).slice(-3)))
         });
 
-        preloadImages()
+
+
+          for (let _ = 0; _<3; _++) {
+              setTimeout(preloadImages, _*3000, _*287, (_+1)*287);
+              console.log('aaaaaaaa')
+          }
+
 
     </script>
 </body>
