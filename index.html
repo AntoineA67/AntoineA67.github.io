@@ -10,51 +10,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
     <canvas id="wine_glass"></canvas>
+
     <script>
 
         const canvas = document.getElementById("wine_glass");
         const context = canvas.getContext("2d");
-        const img_count = 861;
         const img_path = "img/wine_sqc/red-wine-pouring"
         let images = [null]
+        const img = new Image()
+        img.src = img_path + '000.jpg';
+        canvas.width=window.outerWidth;
+        canvas.height=window.outerWidth*1078/618;
+
+        img.onload=function(){
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
 
         function preloadImages (min, max) {
              for (let i = min; i < max; i++) {
                  images[i] = new Image();
                  images[i].src = img_path + ('000' + i.toString()).slice(-3) +'.jpg';
-                 console.log('preload '+i)
+                 //console.log('preload '+i)
              }
-             console.log("000000");
+             //console.log("000000");
         }
-
-
-        const img = new Image()
-        img.src = img_path + '000.jpg';
-        canvas.width=window.outerWidth;
-        canvas.height=window.outerHeight;
-        img.onload=function(){
-            context.drawImage(img, 0, 0);
-        }
-
-        const updateImage = index => {
-
+        function updateImage (index) {
             const img = new Image();
-            // console.log(index);
             img.src = img_path + index +'.jpg';
-            context.drawImage(img, 0, 0);
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+            parallax();
+        }
+        function parallax() {
+            // let s = document.getElementById("wine_glass");
+            // let yPos = 0 - window.scrollY/4;
+            // s.style.top = yPos + "%";
+            // console.log(yPos, s.style.top);
         }
 
+
+        parallax();
+        for (let _ = 0; _<3; _++) {
+            setTimeout(preloadImages, _*2500, _*287, (_+1)*287);
+        }
 
         window.addEventListener('scroll', () => {
-            requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 4.4).toString()).slice(-3)))
+            requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 4.4).toString()).slice(-3)));
         });
-
-
-
-          for (let _ = 0; _<3; _++) {
-              setTimeout(preloadImages, _*3000, _*287, (_+1)*287);
-              console.log('aaaaaaaa')
-          }
+        window.addEventListener('resize', () => {
+            canvas.width=window.outerWidth;
+            canvas.height=window.outerWidth*1078/618;
+            updateImage(requestAnimationFrame(() => updateImage(('0000' + Math.floor(scrollY / 4.4).toString()).slice(-3))));
+        });
 
 
     </script>
