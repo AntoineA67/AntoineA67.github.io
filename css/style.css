@@ -1,5 +1,6 @@
 html {
     height: 100vh;
+    overflow-x: hidden;
 }
 
 body {
@@ -10,7 +11,7 @@ canvas {
     margin: 0;
     padding: 0;
     position: center;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 
