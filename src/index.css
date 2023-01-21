@@ -1,0 +1,8 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none !important;
+  color: black;
+}
