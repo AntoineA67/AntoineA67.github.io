@@ -18,7 +18,6 @@
     "react-mailchimp-subscribe": "^2.1.3",
     "react-parallax-hover": "^2.0.2",
     "react-parallax-tilt": "^1.7.69",
-    "react-scrollbars-custom": "^4.1.1",
     "vite-plugin-svgr": "^2.2.2"
   },
   "devDependencies": {

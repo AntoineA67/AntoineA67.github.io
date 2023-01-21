@@ -233,7 +233,7 @@ type ContactCardProps = {
 type SubscribeFormProps = {
 	onValidated: Function;
 	status: string;
-	message: string;
+	message: string | Error;
 };
 
 type GameLinkProps = {
@@ -281,7 +281,10 @@ const SubscribeForm: FC<SubscribeFormProps> = (props) => {
 		props.onValidated({
 			EMAIL: email
 		});
-		document.getElementById("send-mail").textContent = "Merci !"
+		var sendMail = document.getElementById("send-mail")
+		if (sendMail != null) {
+			sendMail.textContent = "Merci !"
+		}
 	}
 
 	const setTFValue = (value: string) => {
@@ -450,7 +453,7 @@ function App() {
  								<MailchimpSubscribe
 							url={url}
 							render={({ subscribe, status, message }) => (
-								<SubscribeForm status={status} message={message}
+								<SubscribeForm status={status ? status : ""} message={message ? message : ""}
 									onValidated={(formData    : EmailFormFields ) => subscribe(formData)}
 								/>
 								
