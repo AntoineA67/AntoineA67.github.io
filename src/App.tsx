@@ -28,6 +28,7 @@ import { ReactComponent as Logo } from "./assets/logo.svg";
 import anim1Img from "./assets/anim/1.png";
 import anim2Img from "./assets/anim/2.png";
 import anim3Img from "./assets/anim/3.png";
+import cubeImg from "./assets/cube.jpg";
 import Background from "./assets/background.svg";
 
 import Tilt from "react-parallax-tilt";
@@ -265,7 +266,7 @@ const GameLink: FC<GameLinkProps> = (props) => {
             		objectFit: "contain",
             		borderRadius: "4px",
           			}}
-					src="src\assets\cube.png"/>
+					src={cubeImg}/>
 					<Button sx={{ minWidth: "35%", padding: "10px", textTransform: 'none'}} id="play-game" variant="contained" >Jouez</Button>
 				</Box>
 			</Card>
