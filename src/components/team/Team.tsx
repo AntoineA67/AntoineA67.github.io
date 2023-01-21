@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import "../../App.css";
 import hanounaImg from "../../assets/team/hanouna.webp";
 import theoImg from "../../assets/team/theo.jpg";
-import emilieImg from "../../assets/team/emilie.jpg";
+import emilieImg from "../../assets/team/emilie-transformed.jpeg";
 import delhiaImg from "../../assets/team/delhiaa.jpeg";
 import watiImg from "../../assets/team/tschlege.jpeg";
 import antoineImg from "../../assets/team/arangoni.jpeg";
@@ -58,7 +58,7 @@ const teams: member[] = [
 
 const AvatarTeamCard: FC<member> = (props) => {
   return (
-    <Card elevation={4} sx={{ width: "12em", height: "auto", borderRadius: "20px", mr: 1, ml: 1, mb: 1}}>
+    <Card elevation={4} sx={{ width: "13em", height: "auto", borderRadius: "20px", mr: 1, ml: 1, mb: 1}}>
       <Box
         sx={{
           display: "flex",
@@ -143,21 +143,22 @@ const Team = () => {
     	        },
     	      }}
     	    >
+
     	      {teams.map((member: member) => {
-    	        return (
-    	          <Grid
-    	            item
-    	            onMouseEnter={() => {
-    	              setMember(member);
-    	            }}
-    	            onMouseLeave={() => {
-    	              setMember(undefined);
-    	            }}
-    	          >
-    	            <AvatarTeamCard {...member} />
-    	          </Grid>
+				  return (
+						<Grid key={member.name}
+						item
+						onMouseEnter={() => {
+							setMember(member);
+						}}
+						onMouseLeave={() => {
+							setMember(undefined);
+						}}
+						>
+						<AvatarTeamCard {...member} />
+						</Grid>
     	        );
-    	      })}
+			})}
     	    </Box>
     	    <Grid
     	      sx={{
@@ -172,7 +173,7 @@ const Team = () => {
     	    >
     	      {teams.map((member: member) => {
     	        return (
-    	          <Grid
+    	          <Grid key={member.name}
     	            item
     	            onMouseEnter={() => {
     	              setMember(member);

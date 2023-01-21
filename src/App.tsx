@@ -117,7 +117,7 @@ const NavigationBar = () => {
 						>
 							{sections.map((el: Section) => {
 								return (
-									<MenuItem component="a" href={"#" + el.anchor}>
+									<MenuItem key={el.title} component="a" href={"#" + el.anchor}>
 										{el.title}
 									</MenuItem>
 								);
@@ -131,8 +131,8 @@ const NavigationBar = () => {
 								},
 							}}
 						>
-							<IconButton>
-								<MenuIcon onClick={handleOpenDrawer} />
+							<IconButton onClick={handleOpenDrawer} >
+								<MenuIcon/>
 							</IconButton>
 						</Toolbar>
 					</Container>
