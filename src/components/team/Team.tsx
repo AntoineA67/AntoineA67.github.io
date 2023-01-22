@@ -22,7 +22,7 @@ const teams: member[] = [
     role: "42 Lyon",
     image: watiImg,
     description:
-      `Son esprit inventif 💡et ses fortes compétences en électroniques 🧲  permettent à l'équipe d'avoir une vision claire sur la technique et la faisabilité du projet.
+      `Son esprit inventif💡et ses fortes compétences en électroniques⚡permettent à l'équipe d'avoir une vision claire sur la technique et la faisabilité du projet.
 	   Co-Founder/Diplômé en DUT GEII /étudiant à 42 Lyon.`
   },
   {
