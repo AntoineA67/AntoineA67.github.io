@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./App.css";
 import { Box, Container } from "@mui/system";
 import MailchimpSubscribe, { EmailFormFields } from "react-mailchimp-subscribe";
@@ -427,6 +427,16 @@ const Contact = () => {
 
 
 function HomePage() {
+	useEffect( () => {
+		var html = document.querySelector('html')
+		if (html) {
+			html.style.overflow = "auto"
+		}
+		var body = document.querySelector('body')
+		if (body) {
+			body.style.overflow = "auto"
+		}	
+	})
 	return (
 	<ThemeProvider theme={theme}>
 		<div className="App">
