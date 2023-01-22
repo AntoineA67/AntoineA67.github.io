@@ -1,10 +1,12 @@
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import {
+	Box,
 	Button,
 } from "@mui/material";
 import $ from 'jquery';
 import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle } from "./styles/GameStyles";
+import { FC, ReactComponentElement } from "react";
 
 gsap.registerPlugin(Draggable);
 
@@ -18,39 +20,71 @@ var bases = [
 	$("#f1"),
 ]
 
+
 var dropMargin = 5;
 var dropBorder = 3;
 var dropZones: any[] = [];
 var threshold = "50%"
 
-createDropZones(10);
+const nDropZones = 10
+
 
 for (let i = 0; i < bases.length; i++) {
 	createDraggable(i);
 }
+
+createDropZones(10);
 
 // var checkButton = document.querySelector("#check-button");
 // checkButton.addEventListener("click", checkTiles);
 
 function checkTiles() {
 	for (var i = 0; i < dropZones.length; i++) {
-	  var tile = dropZones[i];
-	  
-	  if (!tile.child) {
-		continue;
-	  }
+		var tile = dropZones[i];
+		
+		if (!tile.child) {
+			continue;
+		}
 	  console.log(tile.child.dataset.value)    
 	}
-  }
+}
 
 function createDropZones(count: number) {
 	
 	for (var i = 0; i < count; i++) {
-		var dropZone:any = $(`<div class="drop-zone" data-value="${i}"/>`).appendTo(dropContainer);
+		// var dropZone = $(<div className="drop-zone" data-value={i}/>).appendTo(dropContainer);
+		var dropZone = $(`#drop${i}`)
 		dropZones.push(dropZone);
 		dropZone.child = null
 	}
 }
+
+// type DropZonesProps = {
+// 	child: string,
+// }
+
+// const DropZonesComp: FC<DropZonesProps> = (props) => {
+// 	return (
+// 		.map((todo) =>
+// 				<li key={todo.id}>    {todo.text}
+// 				</li>
+// 				);
+// 	);
+// }
+
+// const DropZonesComp: FC<DropZonesProps> = (props) => {
+// 	let divs = [];
+// 	for (let i = 0; i < nDropZones; i++) {
+// 		var dropZone = <div key={i} className="drop-zone" data-value={i} style={dropZoneStyle}/>
+// 		divs.push(dropZone)
+
+// 		dropZone = $(dropZone)
+
+// 		dropZones.push(dropZone);
+// 		dropZone.child = null
+// 	}
+// 	return divs
+// }
 
 function createDraggable(index: number) {
 
@@ -181,14 +215,31 @@ export default function Game() {
 
 				<div className="drag-container" style={dragContainerStyle}>
 
-					<div className="draggable" style={draggableStyle} id="forward" data-value="forward">Forward</div>
+					<Box className="draggable" sx={draggableStyle} id="forward" data-value="forward">Forward</Box>
+					<Box className="draggable" sx={draggableStyle} id="left" data-value="left">Left</Box>
+					<Box className="draggable" sx={draggableStyle} id="right" data-value="right">Right</Box>
+					<Box className="draggable" sx={draggableStyle} id="f1" data-value="f1">F1</Box>
+					{/* <div className="draggable" style={draggableStyle} id="forward" data-value="forward">Forward</div>
 					<div className="draggable" style={draggableStyle} id="left" data-value="left">Left</div>
 					<div className="draggable" style={draggableStyle} id="right" data-value="right">Right</div>
-					<div className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</div>
+					<div className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</div> */}
 
 				</div>
 				
-				<div className="drop-container" style={dropContainerStyle}></div>
+				<div className="drop-container" style={dropContainerStyle}>
+					{/* <DropZonesComp/> */}
+					{/* <div className="drop-zone" data-value="${i}"/> */}
+					<div style={dropZoneStyle} id="drop0" className="drop-zone" data-value="0"/>
+					<div style={dropZoneStyle} id="drop1" className="drop-zone" data-value="1"/>
+					<div style={dropZoneStyle} id="drop2" className="drop-zone" data-value="2"/>
+					<div style={dropZoneStyle} id="drop3" className="drop-zone" data-value="3"/>
+					<div style={dropZoneStyle} id="drop4" className="drop-zone" data-value="4"/>
+					<div style={dropZoneStyle} id="drop5" className="drop-zone" data-value="5"/>
+					<div style={dropZoneStyle} id="drop6" className="drop-zone" data-value="6"/>
+					<div style={dropZoneStyle} id="drop7" className="drop-zone" data-value="7"/>
+					<div style={dropZoneStyle} id="drop8" className="drop-zone" data-value="8"/>
+					<div style={dropZoneStyle} id="drop9" className="drop-zone" data-value="9"/>
+				</div>
 			</div>
    		</div>
 	);
