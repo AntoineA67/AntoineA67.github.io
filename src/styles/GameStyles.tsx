@@ -1,18 +1,20 @@
 export const dragContainerStyle:React.CSSProperties = {
 	position: "absolute",
-	// display: "flex",
+	display: "flex",
+	textAlign: 'center',
 	bottom: "3%",
-	left: "100px",
+	// left: "100px",
 	height: "10vw",
 	width: "10vw",
-	border: "3px solid #000",
+	// border: "3px solid #000",
 }
 
 export const dropContainerStyle:React.CSSProperties = {
 	position: "absolute",
+	textAlign: "center",
 	display: "flex",
-	bottom: "25%",
-	left: "100px",
+	bottom: "20%",
+	// left: "100px",
 	// width: "216px",
 	border: "3px solid #000",
 }

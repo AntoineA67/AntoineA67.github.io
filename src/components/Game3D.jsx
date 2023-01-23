@@ -5,7 +5,7 @@ import { EffectComposer, Bloom, DepthOfField } from '@react-three/postprocessing
 import { TerrainModel } from './models/TerrainModel'
 import { easing } from 'maath'
 import '/src/styles/Game.module.css'
-import { VoitureModel } from './models/VoitureModel'
+import { Voiture2Model } from './models/Voiture2Model'
 import { Mesh, Vector3 } from 'three'
 import {Button} from '@mui/material'
 import { Game } from '../Game'
@@ -21,7 +21,7 @@ const canvasStyle = {
 }
 
 const cameraOffset = {
-	x: 8,
+	x: 12,
 	y: 4,
 	z: 0
 }
@@ -31,11 +31,22 @@ const cameraRigScale = {
 	y: .2
 }
 
+const voitureOffsetPos = [
+	-2,
+	.05,
+	1
+]
+
+const voitureOffsetRot = [
+	0,
+	3 * Math.PI / 4,
+	0
+]
+
 function CameraRig() {
 	useFrame((state, delta) => {
 	  easing.damp3(state.camera.position, [cameraOffset.x, (state.pointer.y * state.viewport.height * cameraRigScale.y) + cameraOffset.y, (state.pointer.x * state.viewport.width * cameraRigScale.x) + cameraOffset.z], 0.5, delta)
 	  state.camera.lookAt(0, 0, 0)
-	//   console.log(state.camera.position)
 	})
 }
 
@@ -43,25 +54,75 @@ function Voiture(props) {
 	const [clicked, click] = useState(false)
 	const [updating, setUpdate] = useState(false)
 	const [blocks, setBlocks] = useState([])
-	const [tempPos, setTempPos] = useState([
-		-1.3,
-		.2,
-		2.6
-	])
+	const [tempPos, setTempPos] = useState(voitureOffsetPos)
+	const [tempRot, setTempRot] = useState(voitureOffsetRot)
 
-	var tmpBlocks = []
+	const [mapPos, setMapPos] = useState("02")
+	const [mapRot, setMapRot] = useState(0)
+	const dict = {
+		"02": ["12"],
+		"12": ["02","13", "22"],
+		"13": ["12", "23"],
+		"23": ["13", "33"],
+		"22": ["12", "21", "32"],
+		"21": ["22", "11"],
+		"11": ["21", "10"],
+		"10": ["11"],
+		"32": ["22", "31"],
+		"31": ["32", "30"],
+		"30": ["31"],
+		"33": ["23"]
+	}
+
+	const nextMove = () => {
+		var nextCell = ""
+		switch (mapRot) {
+			case 0:
+				nextCell = (Number(mapPos[0]) + 1).toString() + mapPos[1]
+				break;
+			case 1:
+				nextCell = mapPos[0] + (Number(mapPos[1]) - 1).toString()
+				break;
+			case 2:
+				nextCell = (Number(mapPos[0]) - 1).toString() + mapPos[1]
+				break;
+			case 3:
+				nextCell = mapPos[0] + (Number(mapPos[1]) + 1).toString()
+				break;
+			default:
+				break;
+		}
+		if (nextCell.includes("-") || nextCell.includes("4")) {
+			window.alert("Out")
+			return "out"
+		} else if (!(dict[mapPos].includes(nextCell))) {
+			window.alert("Offroadin")
+			return "offroad"
+		}
+		if (nextCell === "30") {
+			// window.setTimeout(() => window.alert("BIENJOUEMONREUF"), 2)
+			
+		}
+		setMapPos(nextCell)
+	}
+
 
 	const myMesh = useRef();
 
 	useFrame((state, delta) => {
-		easing.damp3(myMesh.current.position, tempPos, .5, delta)
+		// setTempRot([tempRot[0], tempRot[1] + 1, tempRot[2]])
+		// myMesh.current.rotation.y += delta
+		// myMesh.current.rotation.x += delta
+		// myMesh.current.rotation.y += delta
+		easing.dampE(myMesh.current.rotation, tempRot, .6, delta)
+		easing.damp3(myMesh.current.position, tempPos, .6, delta)
 		if (blocks.length > 0 && !updating) {
 			console.log("start!")
 			setUpdate(true)
 			state.clock.stop()
 			state.clock.start()
 		}
-		if (blocks.length > 0 && updating && state.clock.elapsedTime > .8) {
+		if (blocks.length > 0 && updating && state.clock.elapsedTime > 1.5) {
 			console.log("using tile")
 			var ins = blocks[0]
 			setBlocks(blocks.slice(1))
@@ -74,13 +135,21 @@ function Voiture(props) {
 			}
 			switch (ins) {
 				case "forward":
-					setTempPos([myMesh.current.position.x + 1, myMesh.current.position.y, myMesh.current.position.z - 1])
+					setTempPos([
+						(myMesh.current.position.x) - 1.1 * Math.cos(tempRot[1] - voitureOffsetRot[1] * 2),
+						myMesh.current.position.y,
+						(myMesh.current.position.z) + 1.1 * Math.sin(tempRot[1] - voitureOffsetRot[1] * 2)
+					])
+					var move = nextMove()
+					console.log(move)
 					break;
 				case "left":
-					setTempPos([myMesh.current.position.x - 1, myMesh.current.position.y, myMesh.current.position.z - 1])
+					setMapRot((mapRot + 3) % 4)
+					setTempRot([tempRot[0], tempRot[1] + Math.PI / 2, tempRot[2]])
 					break;
 				case "right":
-					setTempPos([myMesh.current.position.x + 1, myMesh.current.position.y, myMesh.current.position.z + 1])
+					setMapRot((mapRot + 1) % 4)
+					setTempRot([tempRot[0], tempRot[1] - Math.PI / 2, tempRot[2]])
 					break;
 				
 				default:
@@ -92,7 +161,10 @@ function Voiture(props) {
 
 	function resetGame() {
 		setUpdate(false)
-		setTempPos([-1.3, .2, 2.6])
+		setTempPos(voitureOffsetPos)
+		setTempRot(voitureOffsetRot)
+		setMapPos("02")
+		setMapRot(0)
 		return true
 	}
 
@@ -128,7 +200,7 @@ function Voiture(props) {
 				<meshStandardMaterial color={clicked ? 'green' : 'blue'} />
 			</mesh>
 			<mesh ref={myMesh}>
-				<VoitureModel rotation={[0, Math.PI, 0]}/>
+				<Voiture2Model/>
 			</mesh>
 		</>
 	)
@@ -136,9 +208,6 @@ function Voiture(props) {
 
 
 export default function Game3D() {
-	function resetGame() {
-		console.log("resetGame")
-	}
 
 	useEffect( () => {
 		var html = document.querySelector('html')
@@ -151,12 +220,10 @@ export default function Game3D() {
 		}	
 	})
 
-	const rootRef = useRef(null);
-
 	return (
 		<>
-			<Canvas eventSource={document.getElementById('root')} shadows style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 45 }}>
-				<TerrainModel />
+			<Canvas eventSource={document.getElementById('root')} shadows style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20 }}>
+				<TerrainModel scale={1} />
 				<Voiture />
 				{/* {voiture} */}
 				<Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} />

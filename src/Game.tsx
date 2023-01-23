@@ -2,14 +2,11 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import {
 	Box,
-	Button,
-	Grid,
 } from "@mui/material";
 import $ from 'jquery';
 import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle } from "./styles/GameStyles";
 import { useEffect } from "react";
 
-// gsap.registerPlugin(Draggable);
 
 export function Game() {
 	function createDropZones(count: number) {
@@ -23,24 +20,27 @@ export function Game() {
 	}
 	
 	var dropContainer:any;
-
 	var dragContainer:any;
-	
 	var bases:any;
-	
 	
 	var dropMargin = 5;
 	var dropBorder = 3;
 	var dropZones: any[] = [];
 	var threshold = "50%"
 	
-	const nDropZones = 10
+	const nDropZones = 6
 	
 	useEffect(() => {
 		gsap.registerPlugin(Draggable);
 		dropContainer = $(".drop-container");
 		
 		dragContainer = $(".drag-container");
+		// console.log(dragContainer.position())
+		dragContainer.offset({
+			'top': dropContainer.position().y,
+			'left': dropContainer.position().x,
+		});
+		// console.log(dragContainer.position())
 		
 		bases = [
 			$("#forward"),
@@ -48,10 +48,13 @@ export function Game() {
 			$("#right"),
 			$("#f1"),
 		]
-		createDropZones(10);
+		createDropZones(nDropZones);
 		for (let i = 0; i < bases.length; i++) {
 			createDraggable(i);
 		}
+		$(window).on('resize', () => {
+
+		})
 	})
 	
 	
@@ -70,21 +73,25 @@ export function Game() {
 			p.innerHTML = tile.child.dataset.value
 			idBlocks.appendChild(p)
 			tempBlocks.push(tile.child.dataset.value)
-			console.log(tile.child.dataset.value)
+			// console.log(tile.child.dataset.value)
 		}
-		// setBlocks(Array.from(tempBlocks))
 		return tempBlocks
 	}
 	
 	
 	function createDraggable(index: number) {
-	
+		var containerPos: any = dropContainer.position();
+
+		console.log(containerPos)
+
+		// gsap.set(bases[index], {
+		// 	x: (index - 4) * window.innerWidth * .12,
+		// 	y: 0,
+		// })
 		gsap.set(bases[index], {
-			x: index * window.innerWidth * .12,
+			x: (index - 1.5) * window.innerWidth * .12,
 			y: 0,
 		})
-		
-		// console.log("created")
 		var dragTarget = bases[index].clone().appendTo(dragContainer);
 		
 		Draggable.create(dragTarget, {
@@ -100,7 +107,6 @@ export function Game() {
 				this.kill();
 				this.target.remove();
 
-				// handleBlocks(checkTiles())
 				checkTiles()
 				snapBack(dragTarget, index);
 				return;
@@ -184,7 +190,6 @@ export function Game() {
 		var dropPos = dropZone.position();
 			
 		dropContainer.append(target);
-			
 		gsap.set(target, {
 			x: currentPos.left - containerPos.left - dropBorder,
 			y: currentPos.top - containerPos.top - dropBorder,
@@ -198,7 +203,7 @@ export function Game() {
 	}
 	
 	function snapBack(target: gsap.TweenTarget, index: number) {
-		gsap.to(target, { duration: 0.2, x: index * window.innerWidth * .12, y: 0 });
+		gsap.to(target, { duration: 0.2, x: (index - 1.5) * window.innerWidth * .12, y: 0 });
 	}
 
 	return (
@@ -208,18 +213,13 @@ export function Game() {
 					onClick={checkTiles}>
 					Start
 				</Button> */}
-			<div style={{display: "flex", flexDirection: "row", justifyContent: "center", boxSizing: "border-box"}}>
-
-			<div className="drag-container" style={dragContainerStyle}>
-
-			<Box component="div" className="draggable" style={draggableStyle} id="forward" data-value="forward">Forward</Box>
-			<Box component="div" className="draggable" style={draggableStyle} id="left" data-value="left">Left</Box>
-			<Box component="div" className="draggable" style={draggableStyle} id="right" data-value="right">Right</Box>
-			<Box component="div" className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</Box>
-
-
-			</div>
-
+			<div style={{ display: "flex", flexDirection: "row", justifyContent: "center", boxSizing: "border-box"}}>
+				<div className="drag-container" style={dragContainerStyle}>
+					<Box component="div" className="draggable" style={draggableStyle} id="forward" data-value="forward">Avancer</Box>
+					<Box component="div" className="draggable" style={draggableStyle} id="left" data-value="left">Gauche</Box>
+					<Box component="div" className="draggable" style={draggableStyle} id="right" data-value="right">Droite</Box>
+					<Box component="div" className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</Box>
+				</div>
 				<div className="drop-container" style={dropContainerStyle}>
 					<div style={dropZoneStyle} id="drop0" className="drop-zone" data-value="0"/>
 					<div style={dropZoneStyle} id="drop1" className="drop-zone" data-value="1"/>
@@ -227,10 +227,10 @@ export function Game() {
 					<div style={dropZoneStyle} id="drop3" className="drop-zone" data-value="3"/>
 					<div style={dropZoneStyle} id="drop4" className="drop-zone" data-value="4"/>
 					<div style={dropZoneStyle} id="drop5" className="drop-zone" data-value="5"/>
-					<div style={dropZoneStyle} id="drop6" className="drop-zone" data-value="6"/>
+					{/* <div style={dropZoneStyle} id="drop6" className="drop-zone" data-value="6"/>
 					<div style={dropZoneStyle} id="drop7" className="drop-zone" data-value="7"/>
 					<div style={dropZoneStyle} id="drop8" className="drop-zone" data-value="8"/>
-					<div style={dropZoneStyle} id="drop9" className="drop-zone" data-value="9"/>
+					<div style={dropZoneStyle} id="drop9" className="drop-zone" data-value="9"/> */}
 				</div>
 			</div>
 			<ul style={{display: "none"}} id="blocks"></ul>
