@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { FC, forwardRef, useEffect, useRef, useState } from 'react'
-import { Environment, Effects, useGLTF, Grid, OrbitControls, Cloud } from '@react-three/drei'
+import { Environment, Effects, useGLTF, Grid, OrbitControls, Cloud, ContactShadows } from '@react-three/drei'
 import { EffectComposer, Bloom, DepthOfField } from '@react-three/postprocessing'
 import { TerrainModel } from './models/TerrainModel'
 import { easing } from 'maath'
@@ -64,6 +64,17 @@ function Voiture(props) {
 	
 	const [mapPos, setMapPos] = useState("02")
 	const [mapRot, setMapRot] = useState(0)
+
+	const [openDialog, setOpenDialog] = useState(false);
+
+	const handleClickOpen = () => {
+		setOpenDialog(true);
+	};
+
+	const handleClose = () => {
+		setOpenDialog(false);
+	};
+
 	const dict = {
 		"02": ["12"],
 		"12": ["02","13", "22"],
@@ -106,10 +117,13 @@ function Voiture(props) {
 				break;
 		}
 		if (nextCell.includes("-") || nextCell.includes("4")) {
-			window.alert("Out")
+			// handleClickOpen()
+			window.alert("Aie, il ne faut pas tomber en dehors de la carte...")
+			resetGame()
 			return "out"
 		} else if (!(dict[mapPos].includes(nextCell))) {
-			window.alert("Offroadin")
+			window.alert("Oups, vous ne pouvez pas traverser les routes... Il faut suivre le trace")
+			resetGame()
 			return "offroad"
 		}
 		if (nextCell === "30") {
@@ -129,11 +143,6 @@ function Voiture(props) {
 			easing.damp3(state.camera.position, [5, 1, 1])
 			state.camera.lookAt(0, 0, 0)
 		}
-
-		// setTempRot([tempRot[0], tempRot[1] + 1, tempRot[2]])
-		// myMesh.current.rotation.y += delta
-		// myMesh.current.rotation.x += delta
-		// myMesh.current.rotation.y += delta
 		easing.dampE(myMesh.current.rotation, tempRot, .6, delta)
 		easing.damp3(myMesh.current.position, tempPos, .6, delta)
 		if (blocks.length > 0 && !updating) {
@@ -180,6 +189,7 @@ function Voiture(props) {
 	})
 
 	function resetGame() {
+		setCamRig(true)
 		setBlocks([])
 		setUpdate(false)
 		setTempPos(voitureOffsetPos)
@@ -190,6 +200,9 @@ function Voiture(props) {
 	}
 
 	function startGame() {
+		if (updating) {
+			return
+		}
 		click(!clicked)
 		resetGame()
 		console.log("startGame")
@@ -245,31 +258,56 @@ export default function Game3D() {
 		var body = document.querySelector('body')
 		if (body) {
 			body.style.overflow = "hidden"
+			body.style.background = "#2d4967";
 		}	
 	})
 
 	return (
 		<>
-			<Canvas eventSource={document.getElementById('root')} shadows style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20 }}>
+			<Canvas shadows dpr={[10, 3]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20 , near: .01}}>
 				<TerrainModel scale={1} />
 				<Voiture />
-				{/* {voiture} */}
 				{/* <Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} /> */}
 				{/* <OrbitControls autoRotate autoRotateSpeed={0.5} makeDefault minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
 				<EffectComposer disableNormalPass>
 
-					<Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0.2} intensity={1} />
-					<DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} />
+					<Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0} intensity={.2} />
+					{/* <DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} /> */}
 				</EffectComposer>
-				<hemisphereLight intensity={0.45} />
-				<Cloud scale={.1} position={[-1, 2, -3]} />
-        		<Cloud scale={.1} position={[2, 1.5, 2]} />
-				<Environment background preset="forest" blur={.05} />
+				<ambientLight intensity={0.45} />
+				<spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} shadow-mapSize={[512, 512]} castShadow />
+
+				{/* <Cloud scale={.1} position={[-1, 2, -3]} />
+        		<Cloud scale={.1} position={[2, 1.5, 2]} /> */}
+				<ContactShadows position={[.2, -1.5, 0.2]} opacity={0.75} scale={10} blur={2.5} far={3} />
+				<Environment preset="sunset" />
 			</Canvas>
 			<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
 			{/* <Button sx={{margin: 2}} size="large" variant="contained" onClick={startGame} >Start</Button>
 			<Button sx={{margin: 2}} size="large" variant="contained" onClick={resetGame} >Reset</Button> */}
 			<Game />
+			{/* <Dialog
+				open={openDialog}
+				onClose={handleClose}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">
+				{"Use Google's location service?"}
+				</DialogTitle>
+				<DialogContent>
+				<DialogContentText id="alert-dialog-description">
+					Let Google help apps determine location. This means sending anonymous
+					location data to Google, even when no apps are running.
+				</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+				<Button onClick={handleClose}>Disagree</Button>
+				<Button onClick={handleClose} autoFocus>
+					Agree
+				</Button>
+				</DialogActions>
+			</Dialog> */}
 			</div>
 		</>
 	);

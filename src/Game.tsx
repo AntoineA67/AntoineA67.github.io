@@ -4,8 +4,11 @@ import {
 	Box,
 } from "@mui/material";
 import $ from 'jquery';
-import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle } from "./styles/GameStyles";
+import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle, imgIconStyle } from "./styles/GameStyles";
 import { useEffect } from "react";
+import forwardImg from '/src/assets/blocks-icons/Forward.png'
+import leftImg from '/src/assets/blocks-icons/Left.png'
+import rightImg from '/src/assets/blocks-icons/Right.png'
 
 
 export function Game() {
@@ -215,10 +218,10 @@ export function Game() {
 				</Button> */}
 			<div style={{ display: "flex", flexDirection: "row", justifyContent: "center", boxSizing: "border-box"}}>
 				<div className="drag-container" style={dragContainerStyle}>
-					<Box component="div" className="draggable" style={draggableStyle} id="forward" data-value="forward">Avancer</Box>
-					<Box component="div" className="draggable" style={draggableStyle} id="left" data-value="left">Gauche</Box>
-					<Box component="div" className="draggable" style={draggableStyle} id="right" data-value="right">Droite</Box>
-					<Box component="div" className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</Box>
+					<div className="draggable" style={draggableStyle} id="forward" data-value="forward"><img style={imgIconStyle} src={forwardImg}/></div>
+					<div className="draggable" style={draggableStyle} id="left" data-value="left"><img style={imgIconStyle} src={leftImg}/></div>
+					<div className="draggable" style={draggableStyle} id="right" data-value="right"><img style={imgIconStyle} src={rightImg}/></div>
+					{/* <div src="image" className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</div> */}
 				</div>
 				<div className="drop-container" style={dropContainerStyle}>
 					<div style={dropZoneStyle} id="drop0" className="drop-zone" data-value="0"/>

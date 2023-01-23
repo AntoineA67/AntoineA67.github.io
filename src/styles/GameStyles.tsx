@@ -29,11 +29,24 @@ export const dropZoneStyle:React.CSSProperties = {
 export const draggableStyle:React.CSSProperties = {
 	display: "flex",
 	justifyContent: "center",
+	// opacity: 0,
 	alignItems: "center",
 	position: "absolute",
 	width: "10vw",
 	height: "10vw",
-	background: "dodgerblue",
+	// background: "dodgerblue",
+	top: "0",
+	left: "0",
+}
+
+export const imgIconStyle:React.CSSProperties = {
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	position: "absolute",
+	width: "10vw",
+	height: "10vw",
+	// background: "dodgerblue",
 	top: "0",
 	left: "0",
 }
