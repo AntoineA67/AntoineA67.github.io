@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { FC, forwardRef, useEffect, useRef, useState } from 'react'
-import { Environment, Effects, useGLTF, Grid, OrbitControls } from '@react-three/drei'
+import { Environment, Effects, useGLTF, Grid, OrbitControls, Cloud } from '@react-three/drei'
 import { EffectComposer, Bloom, DepthOfField } from '@react-three/postprocessing'
 import { TerrainModel } from './models/TerrainModel'
 import { easing } from 'maath'
@@ -9,6 +9,8 @@ import { Voiture2Model } from './models/Voiture2Model'
 import { Mesh, Vector3 } from 'three'
 import {Button} from '@mui/material'
 import { Game } from '../Game'
+import { ResetTextModel } from './models/ResetTextModel'
+import { StartTextModel } from './models/StartTextModel'
 
 const canvasStyle = {
 	width: "100vw",
@@ -20,10 +22,14 @@ const canvasStyle = {
 	// position: 'absolute'
 }
 
-const cameraOffset = {
-	x: 12,
-	y: 4,
+const cameraOffset = window.innerWidth > 600 ? {
+	x: 15,
+	y: 5,
 	z: 0
+} : {
+	x: 30,
+	y: 10,
+	z: 4
 }
 
 const cameraRigScale = {
@@ -43,12 +49,8 @@ const voitureOffsetRot = [
 	0
 ]
 
-function CameraRig() {
-	useFrame((state, delta) => {
-	  easing.damp3(state.camera.position, [cameraOffset.x, (state.pointer.y * state.viewport.height * cameraRigScale.y) + cameraOffset.y, (state.pointer.x * state.viewport.width * cameraRigScale.x) + cameraOffset.z], 0.5, delta)
-	  state.camera.lookAt(0, 0, 0)
-	})
-}
+
+
 
 function Voiture(props) {
 	const [clicked, click] = useState(false)
@@ -56,7 +58,10 @@ function Voiture(props) {
 	const [blocks, setBlocks] = useState([])
 	const [tempPos, setTempPos] = useState(voitureOffsetPos)
 	const [tempRot, setTempRot] = useState(voitureOffsetRot)
-
+	const [hoveredStart, hoverStart] = useState(false)
+	const [hoveredReset, hoverReset] = useState(false)
+	const [camRig, setCamRig] = useState(true)
+	
 	const [mapPos, setMapPos] = useState("02")
 	const [mapRot, setMapRot] = useState(0)
 	const dict = {
@@ -74,6 +79,14 @@ function Voiture(props) {
 		"33": ["23"]
 	}
 
+	// function CameraRig() {
+	// 	useFrame((state, delta) => {
+	// 		if (camRig) {
+	// 			easing.damp3(state.camera.position, [cameraOffset.x, (state.pointer.y * state.viewport.height * cameraRigScale.y) + cameraOffset.y, (state.pointer.x * state.viewport.width * cameraRigScale.x) + cameraOffset.z], 0.5, delta)
+	// 			state.camera.lookAt(0, 0, 0)
+	// 		}
+	// 	})
+	// }
 	const nextMove = () => {
 		var nextCell = ""
 		switch (mapRot) {
@@ -100,8 +113,7 @@ function Voiture(props) {
 			return "offroad"
 		}
 		if (nextCell === "30") {
-			// window.setTimeout(() => window.alert("BIENJOUEMONREUF"), 2)
-			
+			setCamRig(false)
 		}
 		setMapPos(nextCell)
 	}
@@ -110,6 +122,14 @@ function Voiture(props) {
 	const myMesh = useRef();
 
 	useFrame((state, delta) => {
+		if (camRig) {
+			easing.damp3(state.camera.position, [cameraOffset.x, (state.pointer.y * state.viewport.height * cameraRigScale.y) + cameraOffset.y, (state.pointer.x * state.viewport.width * cameraRigScale.x) + cameraOffset.z], 0.5, delta)
+			state.camera.lookAt(0, 0, 0)
+		} else {
+			easing.damp3(state.camera.position, [5, 1, 1])
+			state.camera.lookAt(0, 0, 0)
+		}
+
 		// setTempRot([tempRot[0], tempRot[1] + 1, tempRot[2]])
 		// myMesh.current.rotation.y += delta
 		// myMesh.current.rotation.x += delta
@@ -160,6 +180,7 @@ function Voiture(props) {
 	})
 
 	function resetGame() {
+		setBlocks([])
 		setUpdate(false)
 		setTempPos(voitureOffsetPos)
 		setTempRot(voitureOffsetRot)
@@ -187,21 +208,28 @@ function Voiture(props) {
 	return (
 		<>
 
-			<mesh position={[0, 2, 1]}
+			<mesh position={[-3, .3, -2]} rotation={[1.5, .3, -1.2]}
 				{...props}
-				onClick={() => resetGame()}>
-				<boxGeometry args={[.5, .5, .5]}/>
-				<meshStandardMaterial color={clicked ? 'red' : 'yellow'} />
-			</mesh>
-			<mesh position={[0, 2, -1]}
-				{...props}
-				onClick={() => startGame()}>
+				onClick={() => resetGame()}
+				onPointerOut={(e) => hoverReset(false)}
+				onPointerOver={(event) => hoverReset(true)}>
+				<ResetTextModel position={[0, 0, -.7]} castShadow={true}/>
+				<meshStandardMaterial color={hoveredReset ? 0xE7854F : 'yellow'} />
 				<boxGeometry args={[.5, .5, .5]} />
-				<meshStandardMaterial color={clicked ? 'green' : 'blue'} />
+			</mesh>
+			<mesh position={[-3, 1.1, 1]} rotation={[1.5, .3, -1.6]}
+				{...props}
+				onClick={() => startGame()}
+				onPointerOut={(e) => hoverStart(false)}
+				onPointerOver={(event) => hoverStart(true)}>
+				<StartTextModel position={[0, 0, -.7]}/>
+				<boxGeometry args={[.5, .5, .5]} />
+				<meshStandardMaterial color={hoveredStart ? 0x3B70E7 : 'blue'} />
 			</mesh>
 			<mesh ref={myMesh}>
 				<Voiture2Model/>
 			</mesh>
+			{/* <CameraRig /> */}
 		</>
 	)
 }
@@ -226,14 +254,17 @@ export default function Game3D() {
 				<TerrainModel scale={1} />
 				<Voiture />
 				{/* {voiture} */}
-				<Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} />
+				{/* <Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} /> */}
 				{/* <OrbitControls autoRotate autoRotateSpeed={0.5} makeDefault minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
 				<EffectComposer disableNormalPass>
-					<Bloom luminanceThreshold={0} mipmapBlur luminanceSmoothing={0.0} intensity={1} />
-					<DepthOfField target={[0, 0, 13]} focalLength={0.3} bokehScale={15} height={700} />
+
+					<Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0.2} intensity={1} />
+					<DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} />
 				</EffectComposer>
-				<CameraRig />
-				<Environment background preset="sunset" blur={0.8} />
+				<hemisphereLight intensity={0.45} />
+				<Cloud scale={.1} position={[-1, 2, -3]} />
+        		<Cloud scale={.1} position={[2, 1.5, 2]} />
+				<Environment background preset="forest" blur={.05} />
 			</Canvas>
 			<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
 			{/* <Button sx={{margin: 2}} size="large" variant="contained" onClick={startGame} >Start</Button>
