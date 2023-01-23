@@ -8,7 +8,8 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
-export const model:string = "src/assets/models/terrain.gltf"
+// export const model:string = "src/assets/models/terrain.gltf"
+import terrain from "/src/assets/models/terrain.gltf?url"
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -109,7 +110,7 @@ type GLTFResult = GLTF & {
 };
 
 export function TerrainModel(props: JSX.IntrinsicElements["group"]) {
-  const { nodes, materials } = useGLTF(model) as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF(terrain) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <group position={[-2.71, -0.02, -2.08]} rotation={[0, Math.PI / 2, 0]}>
@@ -659,4 +660,4 @@ export function TerrainModel(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload(model);
+useGLTF.preload(terrain);

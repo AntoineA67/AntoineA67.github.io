@@ -2,7 +2,7 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { FC, forwardRef, useEffect, useRef, useState } from 'react'
 import { Environment, Effects, useGLTF, Grid, OrbitControls } from '@react-three/drei'
 import { EffectComposer, Bloom, DepthOfField } from '@react-three/postprocessing'
-import { TerrainModel, model } from './models/TerrainModel'
+import { TerrainModel } from './models/TerrainModel'
 import { easing } from 'maath'
 import '/src/styles/Game.module.css'
 import { VoitureModel } from './models/VoitureModel'
@@ -255,4 +255,4 @@ export default function Game3D() {
 	);
 }
 
-useGLTF.preload(model)
+// useGLTF.preload(model)
