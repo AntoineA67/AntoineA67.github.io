@@ -71,104 +71,94 @@ function CameraRig() {
 		// 	)
 		// }
 		
-var voiturePos = {
-	x: -1.3,
-	y: .2,
-	z: 2.6
-}
+// var voiturePos = {
+// 	x: -1.3,
+// 	y: .2,
+// 	z: 2.6
+// }
 
 function Voiture(props: JSX.IntrinsicElements) {
 	const [clicked, click] = useState(false)
 	const [updating, setUpdate] = useState(false)
 	const [blocks, setBlocks] = useState([])
-	const [voiturePos, setVoiturePos] = useState([
+	const [tempPos, setTempPos] = useState<[ x: number, y: number, z:number ]>([
 		-1.3,
 		.2,
 		2.6
 	])
 
-	const myMesh = useRef();
+	var tmpBlocks = []
+
+	const myMesh:any = useRef();
 
 	useFrame((state, delta) => {
-		// easing.damp3(myMesh.current.position, [myMesh.current.position.x + 1, myMesh.current.position.y, myMesh.current.position.z - 1], 2, delta)
-		// console.log('test')
+		easing.damp3(myMesh.current.position, tempPos, .5, delta)
 		if (blocks.length > 0 && !updating) {
+			console.log("start!")
 			setUpdate(true)
+			state.clock.stop()
+			state.clock.start()
+		}
+		if (blocks.length > 0 && updating && state.clock.elapsedTime > .8) {
+			console.log("using tile")
 			var ins = blocks[0]
 			setBlocks(blocks.slice(1))
-			
+			console.log(blocks, blocks.length)
+			state.clock.stop()
+			if (blocks.length == 1) {
+				console.log("no more tiles")
+				setUpdate(false)
+				state.clock.stop()
+			}
 			switch (ins) {
 				case "forward":
-					console.log("forwarded")
-					setVoiturePos([voiturePos[0] + 1, voiturePos[1], voiturePos[2] - 1])
-					// console.log(easing.damp3(myMesh.current.position, [myMesh.current.position.x + 10, myMesh.current.position.y, myMesh.current.position.z - 10], 2, delta))
+					setTempPos([myMesh.current.position.x + 1, myMesh.current.position.y, myMesh.current.position.z - 1])
 					break;
 				case "left":
-					setVoiturePos([voiturePos[0] - 1, voiturePos[1], voiturePos[2] - 1])
-					
+					setTempPos([myMesh.current.position.x - 1, myMesh.current.position.y, myMesh.current.position.z - 1])
 					break;
 				case "right":
-					setVoiturePos([voiturePos[0] + 1, voiturePos[1], voiturePos[2] - 1])
+					setTempPos([myMesh.current.position.x + 1, myMesh.current.position.y, myMesh.current.position.z + 1])
 					break;
-			
+				
 				default:
 					break;
 			}
-			setUpdate(false)
+			state.clock.start()
 		}
-		// state.camera.lookAt(0, 0, 0)
-	  //   console.log(state.camera.position)
 	})
 
 	function resetGame() {
-		setVoiturePos([-1.3, .2, 2.6])
+		setUpdate(false)
+		setTempPos([-1.3, .2, 2.6])
 	}
 
 	function startGame() {
 		click(!clicked)
+		resetGame()
 		console.log("startGame")
-		var tempBlocks = Array.from(document.querySelector("#blocks").children).map((elem) => {
-			return elem.innerHTML
-		})
+		var blocksId = document.querySelector("#blocks")
+		var tempBlocks:string[] = []
+		if (blocksId) {
+			tempBlocks = Array.from(blocksId.children).map((elem) => {
+				return elem.innerHTML
+			})
+		}
 		console.log(tempBlocks)
 		setBlocks(tempBlocks)
-
-
-		// blocks.forEach(elem => {
-		// 	switch (elem) {
-		// 		case "forward":
-		// 			easing.damp3(voiturePos, [voiturePos[0], voiturePos[1], voiturePos[2] + 2], .8)
-		// 			// setVoiturePos([voiturePos[0], voiturePos[1], voiturePos[2] + 2])
-		// 			break;
-		// 		case "left":
-					
-		// 			break;
-		// 		case "right":
-					
-		// 			break;
-			
-		// 		default:
-		// 			break;
-		// 	}
-		// });
 		click(false)
 	}
 
-	// useFrame(({}) => {
-	// 	myMesh.position.x = voiturePos.x;
-	// 	myMesh.position.y = voiturePos.y;
-	// 	myMesh.position.z = voiturePos.z;
-	// });
 	return (
 		<>
 
-			<mesh position={[0, 0, -5]}
+			<mesh position={[0, 2, 1]}
 				{...props}
 				onClick={(event) => resetGame()}>
 				<boxGeometry args={[.5, .5, .5]}/>
 				<meshStandardMaterial color={clicked ? 'red' : 'yellow'} />
 			</mesh>
-			<mesh position={[-2, 0, -5]}
+			<mesh position={[0, 2, -1]}
 				{...props}
 				onClick={(event) => startGame()}>
 				<boxGeometry args={[.5, .5, .5]} />
@@ -176,7 +166,7 @@ function Voiture(props: JSX.IntrinsicElements) {
 			</mesh>
 			<mesh ref={myMesh}>
 
-				<VoitureModel position={voiturePos} rotation={[0, Math.PI, 0]}/>
+				<VoitureModel rotation={[0, Math.PI, 0]}/>
 				{/* <VoitureModel rotation={[0, Math.PI, 0]}/> */}
 			</mesh>
 		</>

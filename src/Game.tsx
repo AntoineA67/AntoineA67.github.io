@@ -3,30 +3,17 @@ import { Draggable } from "gsap/Draggable";
 import {
 	Box,
 	Button,
+	Grid,
 } from "@mui/material";
 import $ from 'jquery';
 import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle } from "./styles/GameStyles";
-import { FC, ReactComponentElement, useEffect, useImperativeHandle, useState } from "react";
-import Game3D from "./components/Game3D";
-import { useFrame } from "@react-three/fiber";
-import React from "react";
-
-
 
 gsap.registerPlugin(Draggable);
 
 export function Game() {
 
-	// const {handleBlocks} = props;
-	// var [blocks, setBlocks] = useState([])
-
-	// useImperativeHandle(ref, () => ({getMyState: () => {return blocks}}), [blocks]);
-
-	// console.log("props:", props, handleBlocks)
-
-
-
 	var dropContainer = $(".drop-container");
+
 	var dragContainer = $(".drag-container");
 	
 	var bases = [
@@ -44,17 +31,11 @@ export function Game() {
 	
 	const nDropZones = 10
 	
-	
-	// var blocks = []
-	
 	for (let i = 0; i < bases.length; i++) {
 		createDraggable(i);
 	}
 	
 	createDropZones(10);
-	
-	// var checkButton = document.querySelector("#check-button");
-	// checkButton.addEventListener("click", checkTiles);
 	
 	function checkTiles() {
 		console.log("checkTiles")
@@ -116,8 +97,8 @@ export function Game() {
 	function createDraggable(index: number) {
 	
 		gsap.set(bases[index], {
-			x: 0,
-			y: index * 206,
+			x: index * window.innerWidth * .12,
+			y: 0,
 		})
 		
 		// console.log("created")
@@ -234,33 +215,25 @@ export function Game() {
 	}
 	
 	function snapBack(target: gsap.TweenTarget, index: number) {
-		gsap.to(target, { duration: 0.2, x: 0, y: index * 206 });
+		gsap.to(target, { duration: 0.2, x: index * window.innerWidth * .12, y: 0 });
 	}
 
-
-
-
-	// handleBlocks(() => {
-	// 	console.log(getBlocks())
-	// 	console.log("handleBlocks")
-	// 	return (checkTiles())
-	// })
-	// props.handleBlocks(checkTiles())
 	return (
 		<div className="Game">
-			<Button size="large"
+			{/* <Button size="large"
 					variant="contained"
 					onClick={checkTiles}>
 					Start
-				</Button>
-						<div style={{display: "flex", flexDirection: "row", justifyContent: "center", boxSizing: "border-box"}}>
+				</Button> */}
+			<div style={{display: "flex", flexDirection: "row", justifyContent: "center", boxSizing: "border-box"}}>
 
 			<div className="drag-container" style={dragContainerStyle}>
 
-			<Box className="draggable" sx={draggableStyle} id="forward" data-value="forward">Forward</Box>
-			<Box className="draggable" sx={draggableStyle} id="left" data-value="left">Left</Box>
-			<Box className="draggable" sx={draggableStyle} id="right" data-value="right">Right</Box>
-			<Box className="draggable" sx={draggableStyle} id="f1" data-value="f1">F1</Box>
+			<Box className="draggable" style={draggableStyle} id="forward" data-value="forward">Forward</Box>
+			<Box className="draggable" style={draggableStyle} id="left" data-value="left">Left</Box>
+			<Box className="draggable" style={draggableStyle} id="right" data-value="right">Right</Box>
+			<Box className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</Box>
+
 
 			</div>
 
