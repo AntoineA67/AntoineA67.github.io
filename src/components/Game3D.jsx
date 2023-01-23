@@ -1,16 +1,15 @@
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { FC, forwardRef, useEffect, useRef, useState } from 'react'
-import { Environment, Effects, useGLTF, Grid, OrbitControls, Cloud, ContactShadows } from '@react-three/drei'
-import { EffectComposer, Bloom, DepthOfField } from '@react-three/postprocessing'
-import { TerrainModel } from './models/TerrainModel'
+import { Canvas, useFrame, } from '@react-three/fiber'
+import { useEffect, useRef, useState, Suspense } from 'react'
+import { Environment, ContactShadows } from '@react-three/drei'
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
+import { Terrain2Model } from './models/Terrain2Model'
 import { easing } from 'maath'
 import '/src/styles/Game.module.css'
-import { Voiture2Model } from './models/Voiture2Model'
-import { Mesh, Vector3 } from 'three'
-import {Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material'
+import { VoitureModel } from './models/VoitureModel'
 import { Game } from '../Game'
 import { ResetTextModel } from './models/ResetTextModel'
 import { StartTextModel } from './models/StartTextModel'
+import { Box, Typography, Backdrop, CircularProgress } from '@mui/material'
 
 const canvasStyle = {
 	width: "100vw",
@@ -143,8 +142,12 @@ function Voiture(props) {
 			easing.damp3(state.camera.position, [5, 1, 1])
 			state.camera.lookAt(0, 0, 0)
 		}
-		easing.dampE(myMesh.current.rotation, tempRot, .6, delta)
-		easing.damp3(myMesh.current.position, tempPos, .6, delta)
+		if (myMesh.current.rotation != tempRot) {
+			easing.dampE(myMesh.current.rotation, tempRot, .6, delta)
+		}
+		if (myMesh.current.position != tempPos) {
+			easing.damp3(myMesh.current.position, tempPos, .6, delta)
+		}
 		if (blocks.length > 0 && !updating) {
 			// console.log("start!")
 			console.log(blocks)
@@ -223,7 +226,7 @@ function Voiture(props) {
 		<>
 
 			<mesh position={[-3, .3, -2]} rotation={[1.5, .3, -1.2]}
-				{...props}
+				// {...props}
 				onClick={() => resetGame()}
 				onPointerOut={(e) => hoverReset(false)}
 				onPointerOver={(event) => hoverReset(true)}>
@@ -232,7 +235,7 @@ function Voiture(props) {
 				<boxGeometry args={[.5, .5, .5]} />
 			</mesh>
 			<mesh position={[-3, 1.1, 1]} rotation={[1.5, .3, -1.6]}
-				{...props}
+				// {...props}
 				onClick={() => startGame()}
 				onPointerOut={(e) => hoverStart(false)}
 				onPointerOver={(event) => hoverStart(true)}>
@@ -241,31 +244,8 @@ function Voiture(props) {
 				<meshStandardMaterial color={hoveredStart ? 0x3B70E7 : 'blue'} />
 			</mesh>
 			<mesh ref={myMesh}>
-				<Voiture2Model/>
+				<VoitureModel/>
 			</mesh>
-			{/* <Dialog
-				open={openDialog}
-				onClose={handleClose}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-			>
-				<DialogTitle id="alert-dialog-title">
-				{"Use Google's location service?"}
-				</DialogTitle>
-				<DialogContent>
-				<DialogContentText id="alert-dialog-description">
-					Let Google help apps determine location. This means sending anonymous
-					location data to Google, even when no apps are running.
-				</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-				<Button onClick={handleClose}>Disagree</Button>
-				<Button onClick={handleClose} autoFocus>
-					Agree
-				</Button>
-				</DialogActions>
-			</Dialog> */}
-			{/* <CameraRig /> */}
 		</>
 	)
 }
@@ -287,24 +267,28 @@ export default function Game3D() {
 
 	return (
 		<>
-			<Canvas shadows dpr={[10, 3]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20 , near: .01}}>
-				<TerrainModel scale={1} />
-				<Voiture />
-				{/* <Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} /> */}
-				{/* <OrbitControls autoRotate autoRotateSpeed={0.5} makeDefault minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
-				<EffectComposer disableNormalPass>
+			<Suspense fallback={
+					<CircularProgress color="info" size="4em" style={{position: "absolute", top: "50%", left: "50%"}} />
+				}>
+				<Canvas shadows dpr={[1, 2]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20}}>
+					<Terrain2Model scale={1}/>
+					<Voiture />
+					{/* <Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} /> */}
+					{/* <OrbitControls autoRotate autoRotateSpeed={0.5} makeDefault minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
+					<EffectComposer disableNormalPass>
 
-					<Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0} intensity={.2} />
-					{/* <DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} /> */}
-				</EffectComposer>
-				<ambientLight intensity={0.45} />
-				<spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} shadow-mapSize={[512, 512]} castShadow />
+						<Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0} intensity={.2} />
+						{/* <DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} /> */}
+					</EffectComposer>
+					<ambientLight intensity={0.45} />
+					<spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} shadow-mapSize={[512, 512]} castShadow />
 
-				{/* <Cloud scale={.1} position={[-1, 2, -3]} />
-        		<Cloud scale={.1} position={[2, 1.5, 2]} /> */}
-				<ContactShadows position={[.2, -1.5, 0.2]} opacity={0.75} scale={10} blur={2.5} far={3} />
-				<Environment preset="sunset" />
-			</Canvas>
+					{/* <Cloud scale={.1} position={[-1, 2, -3]} />
+					<Cloud scale={.1} position={[2, 1.5, 2]} /> */}
+					<ContactShadows position={[.2, -1.5, 0.2]} opacity={0.75} scale={10} blur={2.5} far={3} />
+					<Environment preset="sunset" />
+				</Canvas>
+			</Suspense>
 			<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
 			{/* <Button sx={{margin: 2}} size="large" variant="contained" onClick={startGame} >Start</Button>
 			<Button sx={{margin: 2}} size="large" variant="contained" onClick={resetGame} >Reset</Button> */}

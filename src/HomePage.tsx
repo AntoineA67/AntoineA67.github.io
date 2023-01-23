@@ -434,7 +434,8 @@ function HomePage() {
 		}
 		var body = document.querySelector('body')
 		if (body) {
-			body.style.overflow = "auto"
+			body.style.overflow = "auto";
+			body.style.background = "#ffffff";
 		}	
 	})
 	return (
