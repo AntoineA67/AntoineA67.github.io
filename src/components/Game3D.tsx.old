@@ -224,6 +224,8 @@ export default function Game3D() {
 		}	
 	})
 
+	const rootRef = useRef(null);
+
 	return (
 		<>
 			<Canvas eventSource={document.getElementById('root')} shadows style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 45 }}>
