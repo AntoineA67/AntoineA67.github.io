@@ -36,8 +36,10 @@ export function Game() {
 	useEffect(() => {
 		gsap.registerPlugin(Draggable);
 		dropContainer = $(".drop-container");
-		
 		dragContainer = $(".drag-container");
+		if (window.innerWidth < 600) {
+			dragContainer.css({"bottom": "10%"})
+		}
 		// console.log(dragContainer.position())
 		dragContainer.offset({
 			'top': dropContainer.position().y,
@@ -62,7 +64,7 @@ export function Game() {
 	
 	
 	function checkTiles() {
-		console.log("checkTiles")
+		// console.log("checkTiles")
 		var tempBlocks = []
 		var idBlocks:any = document.getElementById("blocks")
 		idBlocks.innerHTML = ""
@@ -85,14 +87,14 @@ export function Game() {
 	function createDraggable(index: number) {
 		var containerPos: any = dropContainer.position();
 
-		console.log(containerPos)
+		// console.log(containerPos)
 
 		// gsap.set(bases[index], {
 		// 	x: (index - 4) * window.innerWidth * .12,
 		// 	y: 0,
 		// })
 		gsap.set(bases[index], {
-			x: (index - 1.5) * window.innerWidth * .12,
+			x: (index - 1) * window.innerWidth * .20,
 			y: 0,
 		})
 		var dragTarget = bases[index].clone().appendTo(dragContainer);
@@ -206,7 +208,7 @@ export function Game() {
 	}
 	
 	function snapBack(target: gsap.TweenTarget, index: number) {
-		gsap.to(target, { duration: 0.2, x: (index - 1.5) * window.innerWidth * .12, y: 0 });
+		gsap.to(target, { duration: 0.2, x: (index - 1) * window.innerWidth * .20, y: 0 });
 	}
 
 	return (

@@ -7,7 +7,7 @@ import { easing } from 'maath'
 import '/src/styles/Game.module.css'
 import { Voiture2Model } from './models/Voiture2Model'
 import { Mesh, Vector3 } from 'three'
-import {Button} from '@mui/material'
+import {Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material'
 import { Game } from '../Game'
 import { ResetTextModel } from './models/ResetTextModel'
 import { StartTextModel } from './models/StartTextModel'
@@ -65,15 +65,15 @@ function Voiture(props) {
 	const [mapPos, setMapPos] = useState("02")
 	const [mapRot, setMapRot] = useState(0)
 
-	const [openDialog, setOpenDialog] = useState(false);
+	// const [openDialog, setOpenDialog] = useState(false);
 
-	const handleClickOpen = () => {
-		setOpenDialog(true);
-	};
+	// const handleClickOpen = () => {
+	// 	setOpenDialog(true);
+	// };
 
-	const handleClose = () => {
-		setOpenDialog(false);
-	};
+	// const handleClose = () => {
+	// 	setOpenDialog(false);
+	// };
 
 	const dict = {
 		"02": ["12"],
@@ -146,19 +146,20 @@ function Voiture(props) {
 		easing.dampE(myMesh.current.rotation, tempRot, .6, delta)
 		easing.damp3(myMesh.current.position, tempPos, .6, delta)
 		if (blocks.length > 0 && !updating) {
-			console.log("start!")
+			// console.log("start!")
+			console.log(blocks)
 			setUpdate(true)
 			state.clock.stop()
 			state.clock.start()
 		}
 		if (blocks.length > 0 && updating && state.clock.elapsedTime > 1.5) {
-			console.log("using tile")
+			("using tile")
 			var ins = blocks[0]
 			setBlocks(blocks.slice(1))
-			console.log(blocks, blocks.length)
+			// console.log(blocks, blocks.length)
 			state.clock.stop()
 			if (blocks.length == 1) {
-				console.log("no more tiles")
+				// console.log("no more tiles")
 				setUpdate(false)
 				state.clock.stop()
 			}
@@ -170,7 +171,7 @@ function Voiture(props) {
 						(myMesh.current.position.z) + 1.1 * Math.sin(tempRot[1] - voitureOffsetRot[1] * 2)
 					])
 					var move = nextMove()
-					console.log(move)
+					// console.log(move)
 					break;
 				case "left":
 					setMapRot((mapRot + 3) % 4)
@@ -205,7 +206,7 @@ function Voiture(props) {
 		}
 		click(!clicked)
 		resetGame()
-		console.log("startGame")
+		// console.log("startGame")
 		var blocksId = document.querySelector("#blocks")
 		var tempBlocks = []
 		if (blocksId) {
@@ -213,7 +214,7 @@ function Voiture(props) {
 				return elem.innerHTML
 			})
 		}
-		console.log(tempBlocks)
+		// console.log(tempBlocks)
 		setBlocks(tempBlocks)
 		click(false)
 	}
@@ -242,6 +243,28 @@ function Voiture(props) {
 			<mesh ref={myMesh}>
 				<Voiture2Model/>
 			</mesh>
+			{/* <Dialog
+				open={openDialog}
+				onClose={handleClose}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">
+				{"Use Google's location service?"}
+				</DialogTitle>
+				<DialogContent>
+				<DialogContentText id="alert-dialog-description">
+					Let Google help apps determine location. This means sending anonymous
+					location data to Google, even when no apps are running.
+				</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+				<Button onClick={handleClose}>Disagree</Button>
+				<Button onClick={handleClose} autoFocus>
+					Agree
+				</Button>
+				</DialogActions>
+			</Dialog> */}
 			{/* <CameraRig /> */}
 		</>
 	)
@@ -286,28 +309,6 @@ export default function Game3D() {
 			{/* <Button sx={{margin: 2}} size="large" variant="contained" onClick={startGame} >Start</Button>
 			<Button sx={{margin: 2}} size="large" variant="contained" onClick={resetGame} >Reset</Button> */}
 			<Game />
-			{/* <Dialog
-				open={openDialog}
-				onClose={handleClose}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-			>
-				<DialogTitle id="alert-dialog-title">
-				{"Use Google's location service?"}
-				</DialogTitle>
-				<DialogContent>
-				<DialogContentText id="alert-dialog-description">
-					Let Google help apps determine location. This means sending anonymous
-					location data to Google, even when no apps are running.
-				</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-				<Button onClick={handleClose}>Disagree</Button>
-				<Button onClick={handleClose} autoFocus>
-					Agree
-				</Button>
-				</DialogActions>
-			</Dialog> */}
 			</div>
 		</>
 	);
