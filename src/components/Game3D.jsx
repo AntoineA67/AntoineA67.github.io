@@ -20,29 +20,6 @@ const canvasStyle = {
 	// position: 'absolute'
 }
 
-// function Box(props: any) {
-// 	// This reference will give us direct access to the mesh
-// 	const mesh: any = useRef()
-// 	// Set up state for the hovered and active state
-// 	const [hovered, setHover] = useState(false)
-// 	const [active, setActive] = useState(false)
-// 	// Subscribe this component to the render-loop, rotate the mesh every frame
-// 	useFrame((state, delta) => (mesh.current.rotation.x += delta))
-// 	// Return view, these are regular three.js elements expressed in JSX
-// 	return (
-// 	 	<mesh
-// 			{...props}
-// 			ref={mesh}
-// 			scale={active ? 1.5 : 1}
-// 			onClick={(event) => setActive(!active)}
-// 			onPointerOver={(event) => setHover(true)}
-// 			onPointerOut={(event) => setHover(false)}>
-// 			<boxGeometry args={[1, 1, 1]} />
-// 			<meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-// 	  	</mesh>
-// 	)
-// }
-
 const cameraOffset = {
 	x: 8,
 	y: 4,
@@ -61,21 +38,6 @@ function CameraRig() {
 	//   console.log(state.camera.position)
 	})
 }
-
-// function Grading() {
-	// 	const { texture3D } = useLoader(LUTCubeLoader, 'assets/cubicle-99.CUBE')
-	// 	return (
-		// 		<Effects>
-		// 			<lUTPass lut={texture3D} intensity={0.75} />
-		// 	  	</Effects>
-		// 	)
-		// }
-		
-// var voiturePos = {
-// 	x: -1.3,
-// 	y: .2,
-// 	z: 2.6
-// }
 
 function Voiture(props) {
 	const [clicked, click] = useState(false)
@@ -174,44 +136,9 @@ function Voiture(props) {
 
 
 export default function Game3D() {
-	// const [blocks, setBlocks] = useState([])
-	// const [start, setStart] = useState(false)
-
-
-
-	// function startGame() {
-	// 	console.log("startGame")
-	// 	var blocks = Array.from(document.querySelector("#blocks").children).map((elem) => {
-	// 		return elem.innerHTML
-	// 	})
-	// 	console.log(blocks)
-
-	// 	blocks.forEach(elem => {
-	// 		switch (elem) {
-	// 			case "forward":
-	// 				easing.damp3(voiturePos, [voiturePos.x, voiturePos.y, voiturePos.z + 2], .2)
-	// 				break;
-	// 			case "left":
-					
-	// 				break;
-	// 			case "right":
-					
-	// 				break;
-			
-	// 			default:
-	// 				break;
-	// 		}
-	// 	});
-	// }
 	function resetGame() {
 		console.log("resetGame")
 	}
-
-	// const getBlocks = (data) => {
-	// 	// console.log("getBlocks")
-	// 	// console.log(data)
-	// 	setBlocks(data)
-	// }
 
 	useEffect( () => {
 		var html = document.querySelector('html')
@@ -229,10 +156,6 @@ export default function Game3D() {
 	return (
 		<>
 			<Canvas eventSource={document.getElementById('root')} shadows style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 45 }}>
-				{/* <ambientLight /> */}
-				{/* <pointLight position={[10, 10, 10]} /> */}
-				{/* <Box position={[-1.2, 0, 0]} />
-		<Box position={[1.2, 0, 0]} /> */}
 				<TerrainModel />
 				<Voiture />
 				{/* {voiture} */}
@@ -250,9 +173,6 @@ export default function Game3D() {
 			<Button sx={{margin: 2}} size="large" variant="contained" onClick={resetGame} >Reset</Button> */}
 			<Game />
 			</div>
-			{/* <Game /> */}
 		</>
 	);
 }
-
-// useGLTF.preload(model)

@@ -7,21 +7,26 @@ import {
 } from "@mui/material";
 import $ from 'jquery';
 import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle } from "./styles/GameStyles";
+import { useEffect } from "react";
 
-gsap.registerPlugin(Draggable);
+// gsap.registerPlugin(Draggable);
 
 export function Game() {
-
-	var dropContainer = $(".drop-container");
-
-	var dragContainer = $(".drag-container");
+	function createDropZones(count: number) {
+		
+		for (var i = 0; i < count; i++) {
+			// var dropZone = $(<div className="drop-zone" data-value={i}/>).appendTo(dropContainer);
+			var dropZone:any = $(`#drop${i}`)
+			dropZones.push(dropZone);
+			dropZone.child = null
+		}
+	}
 	
-	var bases = [
-		$("#forward"),
-		$("#left"),
-		$("#right"),
-		$("#f1"),
-	]
+	var dropContainer:any;
+
+	var dragContainer:any;
+	
+	var bases:any;
 	
 	
 	var dropMargin = 5;
@@ -31,11 +36,24 @@ export function Game() {
 	
 	const nDropZones = 10
 	
-	for (let i = 0; i < bases.length; i++) {
-		createDraggable(i);
-	}
+	useEffect(() => {
+		gsap.registerPlugin(Draggable);
+		dropContainer = $(".drop-container");
+		
+		dragContainer = $(".drag-container");
+		
+		bases = [
+			$("#forward"),
+			$("#left"),
+			$("#right"),
+			$("#f1"),
+		]
+		createDropZones(10);
+		for (let i = 0; i < bases.length; i++) {
+			createDraggable(i);
+		}
+	})
 	
-	createDropZones(10);
 	
 	function checkTiles() {
 		console.log("checkTiles")
@@ -58,42 +76,6 @@ export function Game() {
 		return tempBlocks
 	}
 	
-	function createDropZones(count: number) {
-		
-		for (var i = 0; i < count; i++) {
-			// var dropZone = $(<div className="drop-zone" data-value={i}/>).appendTo(dropContainer);
-			var dropZone:any = $(`#drop${i}`)
-			dropZones.push(dropZone);
-			dropZone.child = null
-		}
-	}
-	
-	// type DropZonesProps = {
-	// 	child: string,
-	// }
-	
-	// const DropZonesComp: FC<DropZonesProps> = (props) => {
-	// 	return (
-	// 		.map((todo) =>
-	// 				<li key={todo.id}>    {todo.text}
-	// 				</li>
-	// 				);
-	// 	);
-	// }
-	
-	// const DropZonesComp: FC<DropZonesProps> = (props) => {
-	// 	let divs = [];
-	// 	for (let i = 0; i < nDropZones; i++) {
-	// 		var dropZone = <div key={i} className="drop-zone" data-value={i} style={dropZoneStyle}/>
-	// 		divs.push(dropZone)
-	
-	// 		dropZone = $(dropZone)
-	
-	// 		dropZones.push(dropZone);
-	// 		dropZone.child = null
-	// 	}
-	// 	return divs
-	// }
 	
 	function createDraggable(index: number) {
 	
