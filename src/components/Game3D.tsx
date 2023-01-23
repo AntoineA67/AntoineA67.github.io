@@ -80,7 +80,7 @@ function CameraRig() {
 function Voiture(props: JSX.IntrinsicElements) {
 	const [clicked, click] = useState(false)
 	const [updating, setUpdate] = useState(false)
-	const [blocks, setBlocks] = useState([])
+	const [blocks, setBlocks] = useState<Array<string>>([])
 	const [tempPos, setTempPos] = useState<[ x: number, y: number, z:number ]>([
 		-1.3,
 		.2,
@@ -131,6 +131,7 @@ function Voiture(props: JSX.IntrinsicElements) {
 	function resetGame() {
 		setUpdate(false)
 		setTempPos([-1.3, .2, 2.6])
+		return true
 	}
 
 	function startGame() {
@@ -154,20 +155,18 @@ function Voiture(props: JSX.IntrinsicElements) {
 
 			<mesh position={[0, 2, 1]}
 				{...props}
-				onClick={(event) => resetGame()}>
+				onClick={() => resetGame()}>
 				<boxGeometry args={[.5, .5, .5]}/>
 				<meshStandardMaterial color={clicked ? 'red' : 'yellow'} />
 			</mesh>
 			<mesh position={[0, 2, -1]}
 				{...props}
-				onClick={(event) => startGame()}>
+				onClick={() => startGame()}>
 				<boxGeometry args={[.5, .5, .5]} />
 				<meshStandardMaterial color={clicked ? 'green' : 'blue'} />
 			</mesh>
 			<mesh ref={myMesh}>
-
 				<VoitureModel rotation={[0, Math.PI, 0]}/>
-				{/* <VoitureModel rotation={[0, Math.PI, 0]}/> */}
 			</mesh>
 		</>
 	)
@@ -224,6 +223,7 @@ export default function Game3D() {
 			body.style.overflow = "hidden"
 		}	
 	})
+
 	return (
 		<>
 			<Canvas eventSource={document.getElementById('root')} shadows style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 45 }}>
