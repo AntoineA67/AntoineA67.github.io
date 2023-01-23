@@ -94,13 +94,13 @@ const NavigationBar = () => {
 					</List>
 				</Drawer>
 			)}
-			<Box>
+			<Box component="div">
 				<AppBar sx={{ padding: 1 }} elevation={0}>
 					<Container
 						sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
 					>
-						<Box sx={{ flexGrow: 1 }}>
-							<Box sx={{ width: "200px" }}>
+						<Box component="div" sx={{ flexGrow: 1 }}>
+							<Box component="div" sx={{ width: "200px" }}>
 								<Box component="a" href="#home">
 									<Logo />
 								</Box>
@@ -157,7 +157,7 @@ type WrapperProps = {
 
 const Wrapper: FC<WrapperProps> = (props) => {
 	return (
-		<Box
+		<Box component="div"
 			id={props.anchor}
 			sx={{
 				minHeight: "100vh",
@@ -190,7 +190,7 @@ const Element: FC<ElementProps> = (props) => {
 				}}
 			>
 				<Grid item xs={12} md={6}>
-					<Box sx={{ display: "flex", justifyContent: "center" }}>
+					<Box component="div" sx={{ display: "flex", justifyContent: "center" }}>
 						<Tilt tiltEnable={false} scale={1.2} >
 							<Box
 								component="img"
@@ -201,12 +201,12 @@ const Element: FC<ElementProps> = (props) => {
 					</Box>
 				</Grid>
 				<Grid item xs={12} md={6}>
-					<Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+					<Box component="div" sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
 						<Typography variant="h2" sx={{ fontFamily: "Llewie" }}>
 							{props.title}
 						</Typography>
 						<Typography variant="subtitle1" sx={{fontWeight:"500", fontSize:"17px", paddingTop: "14px", lineHeight: "1.5"}}>{props.description}</Typography>
-						<Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
+						<Box component="div" sx={{ display: "flex", flexDirection: "row-reverse" }}>
 							<Button
 								sx={{ backgroundColor: "#E3F6FF"}}
 								component="a"
@@ -243,17 +243,17 @@ type GameLinkProps = {
 const GameLink: FC<GameLinkProps> = (props) => {
 	return (
 			<Card elevation={8} sx={{ width: "85%", justifyContent: "space-between", marginTop: 10, JustifyContent:"center", paddingBottom: 2, borderRadius: 5}}>
-				<Box
+				<Box component="div"
 					sx={{ paddingTop: 3, paddingLeft: 2}}
 					>
 					<Typography sx={{ fontWeight: "bold", fontSize: "2rem" }}>Jouez au jeu !</Typography>
 				</Box>
-				<Box
+				<Box component="div"
 					sx={{ paddingTop:  2, paddingLeft: 2}}
 				>
 					<Typography sx={{ fontStyle: "italic", fontSize: "1.5rem" }}>Un petit jeu pour tester votre logique ! 🧩🧠</Typography>
 				</Box>
-				<Box
+				<Box component="div"
 					sx={{ padding: 2, display: "flex", flexDirection: "column", gap: 4, justifyContent: "space-between", alignItems: "center" }}
 				>
 				
@@ -293,12 +293,12 @@ const SubscribeForm: FC<SubscribeFormProps> = (props) => {
 
 	return (
 			<Card elevation={8} sx={{ width: "85%", justifyContent: "space-between", marginTop: 10, JustifyContent:"center", paddingBottom: 2, borderRadius: 5}}>
-				<Box
+				<Box component="div"
 					sx={{ paddingTop: 3, paddingLeft: 2}}
 					>
 					<Typography sx={{ fontWeight: "bold", fontSize: "2rem" }}>Rejoignez l'aventure Sequency !</Typography>
 				</Box>
-				<Box
+				<Box component="div"
 					sx={{ paddingTop:  2, paddingLeft: 2}}
 				>
 					<Typography sx={{ fontStyle: "italic", fontSize: "1.5rem", lineHeight: 3 }}>
@@ -307,7 +307,7 @@ const SubscribeForm: FC<SubscribeFormProps> = (props) => {
 						Nous vous enverrons les avancées du projet 🔬<br/>
 						Vous aurez droit à une réduction lorsque le produit sera disponible ! </Typography>
 				</Box>
-				<Box
+				<Box component="div"
 					sx={{ padding: 2, display: "flex", flexDirection: "column", gap: 4, justifyContent: "space-between", alignItems: "center" }}
 				>
 					<TextField sx={{ width: "100%"}} id="outlined-basic" label="Email" variant="outlined" onChange={(newValue) => setTFValue(newValue.target.value)} />
@@ -320,10 +320,10 @@ const SubscribeForm: FC<SubscribeFormProps> = (props) => {
 const ContactCard: FC<ContactCardProps> = (props) => {
 	return (
 		<Card elevation={8} sx={{ justifyContent: "space-between" }}>
-			<Box
+			<Box component="div"
 				sx={{ padding: 2, display: "flex", flexDirection: "column", gap: 4 }}
 			>
-				<Box
+				<Box component="div"
 					sx={{
 						display: "flex",
 						flexDirection: "column",
@@ -334,7 +334,7 @@ const ContactCard: FC<ContactCardProps> = (props) => {
 					{props.icon}
 					<Typography>{props.title}</Typography>
 				</Box>
-				<Box sx={{ display: "flex", justifyContent: "center" }}>
+				<Box component="div" sx={{ display: "flex", justifyContent: "center" }}>
 					{props.value}
 				</Box>
 			</Box>
@@ -441,7 +441,7 @@ function HomePage() {
 	<ThemeProvider theme={theme}>
 		<div className="App">
 			<NavigationBar />
-			<Box
+			<Box component="div"
 				sx={{
 					backgroundImage: `url(${Background})`,
 					backgroundSize: "cover",

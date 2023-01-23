@@ -109,7 +109,7 @@ type GLTFResult = GLTF & {
 };
 
 export function TerrainModel(props: JSX.IntrinsicElements["group"]) {
-  const { nodes, materials } = useGLTF(model) as GLTFResult;
+  const { nodes, materials } = useGLTF(model) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <group position={[-2.71, -0.02, -2.08]} rotation={[0, Math.PI / 2, 0]}>

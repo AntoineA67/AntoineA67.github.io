@@ -40,7 +40,8 @@ export function Game() {
 	function checkTiles() {
 		console.log("checkTiles")
 		var tempBlocks = []
-		document.getElementById("blocks").innerHTML = ""
+		var idBlocks:any = document.getElementById("blocks")
+		idBlocks.innerHTML = ""
 		for (var i = 0; i < dropZones.length; i++) {
 			var tile = dropZones[i];
 			
@@ -49,7 +50,7 @@ export function Game() {
 			}
 			var p = document.createElement("li");
 			p.innerHTML = tile.child.dataset.value
-			document.getElementById("blocks").appendChild(p)
+			idBlocks.appendChild(p)
 			tempBlocks.push(tile.child.dataset.value)
 			console.log(tile.child.dataset.value)
 		}
@@ -229,10 +230,10 @@ export function Game() {
 
 			<div className="drag-container" style={dragContainerStyle}>
 
-			<Box className="draggable" style={draggableStyle} id="forward" data-value="forward">Forward</Box>
-			<Box className="draggable" style={draggableStyle} id="left" data-value="left">Left</Box>
-			<Box className="draggable" style={draggableStyle} id="right" data-value="right">Right</Box>
-			<Box className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</Box>
+			<Box component="div" className="draggable" style={draggableStyle} id="forward" data-value="forward">Forward</Box>
+			<Box component="div" className="draggable" style={draggableStyle} id="left" data-value="left">Left</Box>
+			<Box component="div" className="draggable" style={draggableStyle} id="right" data-value="right">Right</Box>
+			<Box component="div" className="draggable" style={draggableStyle} id="f1" data-value="f1">F1</Box>
 
 
 			</div>

@@ -59,7 +59,7 @@ const teams: member[] = [
 const AvatarTeamCard: FC<member> = (props) => {
   return (
     <Card elevation={4} sx={{ width: "13em", height: "auto", borderRadius: "20px", mr: 1, ml: 1, mb: 1}}>
-      <Box
+      <Box component="div"
         sx={{
           display: "flex",
           flexDirection: "column", 
@@ -76,7 +76,7 @@ const AvatarTeamCard: FC<member> = (props) => {
           }}
           src={props.image}
         />
-        <Box sx={{ padding: 1 }}>
+        <Box component="div" sx={{ padding: 1 }}>
           <Typography sx={{ textAlign: "center" }}>{props.name}</Typography>
         </Box>
       </Box>
@@ -87,7 +87,7 @@ const AvatarTeamCard: FC<member> = (props) => {
 const Team = () => {
   const [member, setMember] = useState<member | undefined>(undefined);
   return (
-    	<Box
+    	<Box component="div"
     	  sx={{
     	    width: "80%",
     	    display: "flex",
@@ -99,7 +99,7 @@ const Team = () => {
     	    gap: 3,
     	  }}
     	>
-    	  <Box
+    	  <Box component="div"
     	    sx={{
     	    	width: {
     	        xs: "100%",
@@ -120,13 +120,13 @@ const Team = () => {
     	        : "Théo Schlegel et Antoine Adamy ont fondé Sequency dans le but d'aider les enfants à mieux approcher le monde numérique. Rejoins ensuite par Théo Cerdan, ils se sont rencontrés au sein de l'école 42 et partagent la même passion pour l’informatique et l'électronique. En participant au programme DPE de l'ESDES, Delhia Cocquaz et Emilie Lajon ont rejoint Sequency afin d'assister le plan commercial."}
     	    </Typography>
     	  </Box>
-    	  <Box
+    	  <Box component="div"
     	    sx={{
     	    	display: "flex",
     	    	flexDirection: "row",
     	    }}
     	  >
-    	    <Box
+    	    <Box component="div"
     	      sx={{
 				borderRadius: "25px",
     	        display: {
