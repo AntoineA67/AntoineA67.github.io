@@ -48,7 +48,7 @@ const teams: member[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor incididuntut labore et dolore magna aliqua.",
   },
   {
-    name: "Delhia Cocquaz",
+    name: "Delhia Coquaz",
     role: "Archer",
     image: delhiaImg,
     description:
@@ -117,7 +117,7 @@ const Team = () => {
     	    <Typography variant="subtitle1" sx={{fontWeight:"500", fontSize:"17px", lineHeight: "1.5"}}>
     	      {member
     	        ? member.description
-    	        : "Théo Schlegel et Antoine Adamy ont fondé Sequency dans le but d'aider les enfants à mieux approcher le monde numérique. Rejoins ensuite par Théo Cerdan, ils se sont rencontrés au sein de l'école 42 et partagent la même passion pour l’informatique et l'électronique. En participant au programme DPE de l'ESDES, Delhia Cocquaz et Emilie Lajon ont rejoint Sequency afin d'assister le plan commercial."}
+    	        : "Théo Schlegel et Antoine Adamy ont fondé Sequency dans le but d'aider les enfants à mieux approcher le monde numérique. Rejoins ensuite par Théo Cerdan, ils se sont rencontrés au sein de l'école 42 et partagent la même passion pour l’informatique et l'électronique. En participant au programme DPE de l'ESDES, Delhia Coquaz et Emilie Lajon ont rejoint Sequency afin d'assister le plan commercial."}
     	    </Typography>
     	  </Box>
     	  <Box component="div"

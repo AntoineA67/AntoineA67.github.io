@@ -135,6 +135,7 @@ function Voiture(props) {
 	const myMesh = useRef();
 
 	useFrame((state, delta) => {
+
 		if (camRig) {
 			easing.damp3(state.camera.position, [cameraOffset.x, (state.pointer.y * state.viewport.height * cameraRigScale.y) + cameraOffset.y, (state.pointer.x * state.viewport.width * cameraRigScale.x) + cameraOffset.z], 0.5, delta)
 			state.camera.lookAt(0, 0, 0)
@@ -222,6 +223,29 @@ function Voiture(props) {
 		click(false)
 	}
 
+	// function Box(props) {
+	// 	// This reference gives us direct access to the THREE.Mesh object
+	// 	const ref = useRef()
+	// 	// Hold state for hovered and clicked events
+	// 	const [hovered, hover] = useState(false)
+	// 	const [clicked, click] = useState(false)
+	// 	// Subscribe this component to the render-loop, rotate the mesh every frame
+	// 	useFrame((state, delta) => (ref.current.rotation.x += delta))
+	// 	// Return the view, these are regular Threejs elements expressed in JSX
+	// 	return (
+	// 	  <mesh
+	// 		{...props}
+	// 		ref={ref}
+	// 		scale={clicked ? 1.5 : 1}
+	// 		onClick={(event) => click(!clicked)}
+	// 		onPointerOver={(event) => hover(true)}
+	// 		onPointerOut={(event) => hover(false)}>
+	// 		<boxGeometry args={[1, 1, 1]} />
+	// 		<meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+	// 	  </mesh>
+	// 	)
+	//   }
+
 	return (
 		<>
 
@@ -270,7 +294,7 @@ export default function Game3D() {
 			<Suspense fallback={
 					<CircularProgress color="info" size="4em" style={{position: "absolute", top: "50%", left: "50%"}} />
 				}>
-				<Canvas shadows dpr={[1, 2]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20}}>
+				<Canvas dpr={[1, 2]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20}}>
 					<Terrain2Model scale={1}/>
 					<Voiture />
 					{/* <Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} /> */}
@@ -281,7 +305,7 @@ export default function Game3D() {
 						{/* <DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} /> */}
 					</EffectComposer>
 					<ambientLight intensity={0.45} />
-					<spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} shadow-mapSize={[512, 512]} castShadow />
+					{/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} shadow-mapSize={[512, 512]} castShadow /> */}
 
 					{/* <Cloud scale={.1} position={[-1, 2, -3]} />
 					<Cloud scale={.1} position={[2, 1.5, 2]} /> */}
