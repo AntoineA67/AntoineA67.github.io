@@ -22,7 +22,7 @@ const teams: member[] = [
     role: "42 Lyon",
     image: watiImg,
     description:
-      `Son esprit inventif💡et ses fortes compétences en électroniques⚡permettent à l'équipe d'avoir une vision claire sur la technique et la faisabilité du projet.
+      `Son esprit inventif💡et ses fortes compétences en électronique⚡ permettent à l'équipe d'avoir une vision claire sur la technique et la faisabilité du projet.
 	   Co-Founder/Diplômé en DUT GEII /étudiant à 42 Lyon.`
   },
   {
@@ -30,7 +30,7 @@ const teams: member[] = [
     role: "CTO",
     image: antoineImg,
     description:
-      `Le vrai couteau-suisse 👷🪛 de Sequency, avec ses connaissances poussée dans le développement informatique, et son habileté dans la conception et la réalisation 3D, permet à Sequency d'évoluer chaque jour.
+      `Le vrai couteau-suisse 👷🪛 de Sequency, ses connaissances poussée dans le développement informatique et son habileté dans la conception et la réalisation 3D permettent à Sequency d'évoluer chaque jour.
 	   Co-Founder / étudiant à 42 Lyon.`
   },
   {
@@ -45,14 +45,14 @@ const teams: member[] = [
     role: "Archer",
     image: emilieImg,
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor incididuntut labore et dolore magna aliqua.",
+      "Tout en bipolarité, Emilie est à la fois organisée 👩‍🏫 et créative 👩‍🎨! En école de commerce depuis 3 ans, elle sait parfaitement élaborer des projets et pousser son imagination 💡 jusqu'aux étoiles 🌠.",
   },
   {
     name: "Delhia Coquaz",
     role: "Archer",
     image: delhiaImg,
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor incididunt ut labore et dolore magna aliqua.",
+      "À l’ESDES depuis trois ans🎓, elle met à profit pour l’équipe des compétences commerciales 📝, dont la stratégie d’entreprise et le marketing 📲 pour donner vie au projet 🚀.",
   },
 ];
 
