@@ -1,7 +1,7 @@
 import { Typography, Grid, Card } from "@mui/material";
 import { Box } from "@mui/system";
 import { FC, useState } from "react";
-import "../../App.css";
+import "../../styles/App.css";
 import hanounaImg from "../../assets/team/hanouna.webp";
 import theoImg from "../../assets/team/theo.jpg";
 import emilieImg from "../../assets/team/emilie-transformed.jpeg";

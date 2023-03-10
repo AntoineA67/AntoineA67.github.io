@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Game3D from "./components/Game3D";
+import Game3D from "./components/game/Game3D";
 import HomePage from "./HomePage";
-
 
 function App() {
 	return (

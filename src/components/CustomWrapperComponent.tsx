@@ -22,3 +22,5 @@ const CustomWrapper: FC<CustomWrapperProps> = (props) => {
 		</Box>
 	);
 };
+
+export default CustomWrapper;

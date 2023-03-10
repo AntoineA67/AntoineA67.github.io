@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import "./App.css";
+import "./styles/App.css";
 import { Box, Container } from "@mui/system";
 import MailchimpSubscribe, { EmailFormFields } from "react-mailchimp-subscribe";
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -19,7 +19,6 @@ import {
 	Toolbar,
 	Typography,
 	TextField,
-	Switch,
 } from "@mui/material";
 import { ReactComponent as Logo } from "./assets/logo.svg";
 
@@ -36,7 +35,6 @@ import LosBlockos from "./assets/Videos/LosBlockos.mp4";
 import LosBlockosConnectos from "./assets/Videos/LosBlockosConnectos.mp4"
 import LETSGOOOBLOCKOS from "./assets/Videos/LETSGOOOBLOCKOS.mp4"
 
-import Tilt from "react-parallax-tilt";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
@@ -44,9 +42,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Team from "./components/team/Team";
 import { Link } from "react-router-dom";
-import BasicCard from "./jul";
-
 const url = "https://sequency.us17.list-manage.com/subscribe/post?u=20731daf6bdd5bf1a788885e0&amp;id=927bd8923a&amp;f_id=00ad55e0f0";
+import CustomWrapper from "./components/CustomWrapperComponent";
 
 
 const theme = createTheme({
@@ -434,7 +431,7 @@ function HomePage() {
 						paddingBottom: "60px",
 					}}
 				>
-					<Wrapper anchor="home">
+					<CustomWrapper anchor="home">
 						<Element
 							buttonColor="#2C5EAF"
 							reverse={false}
@@ -444,7 +441,7 @@ function HomePage() {
 
 							description="notre mission est claire : apporter à l'enfant toutes les clés de réussite dans un monde ultra-connecté."
 						/>
-						<Wrapper anchor="">
+						<CustomWrapper anchor="">
 							<Grid container sx={{ display: " flex", justifyContent: "center" }}>
 								<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
 									<Typography variant="h4" sx={{marginTop:"0.6em", width: "90%", fontFamily: "Llewie" }}>
@@ -468,9 +465,9 @@ function HomePage() {
 									<VideoCard image={LosBlockos} />
 								</Grid>
 							</Grid>
-						</Wrapper>
+						</CustomWrapper>
 
-						<Wrapper anchor="">
+						<CustomWrapper anchor="">
 							<Grid container sx={{ display: " flex", justifyContent: "center" }}>
 								<Grid item xs={12} sm={4} sx={{ display: "flex", justifyContent: "center" }}>
 									<VideoCard image={LosBlockosConnectos}/>
@@ -493,9 +490,9 @@ function HomePage() {
 									</Typography>
 								</Grid>
 							</Grid>
-						</Wrapper>
+						</CustomWrapper>
 
-						<Wrapper anchor="">
+						<CustomWrapper anchor="">
 							<Grid container sx={{ display: " flex", justifyContent: "center" }}>
 								<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
 									<Typography variant="h4" sx={{marginTop:"0.6em", width: "90%", fontFamily: "Llewie" }}>
@@ -519,7 +516,7 @@ function HomePage() {
 									<VideoCard image={LETSGOOOBLOCKOS}/>
 								</Grid>
 							</Grid>
-						</Wrapper>
+						</CustomWrapper>
 
 						<Grid container>
 							<Grid item xs={12} sm={4} sx={{ display: " flex", justifyContent: "center" }}>
@@ -539,8 +536,8 @@ function HomePage() {
 
 						</Grid>
 
-					</Wrapper>
-					<Wrapper anchor="values">
+					</CustomWrapper>
+					<CustomWrapper anchor="values">
 						<Element
 							buttonColor="#FFD372"
 							reverse={true}
@@ -548,8 +545,8 @@ function HomePage() {
 							title="S'amuser tout en apprenant"
 							description="Avec Sequency, les enfants peuvent apprendre les concepts de base de la logique informatique de manière ludique et interactive grâce à notre solution innovante composée d'un robot et de blocs connectables."
 						/>
-					</Wrapper>
-					<Wrapper anchor="">
+					</CustomWrapper>
+					<CustomWrapper anchor="">
 						<Element
 							buttonColor="#6BC678"
 							reverse={false}
@@ -557,13 +554,13 @@ function HomePage() {
 							title="Difficulté évolutive."
 							description="Le plateau de jeu Sequency s'adapte parfaitement au niveau intellectuel de l'enfant, il permet également d'explorer de nouveaux concepts logiques."
 						/>
-					</Wrapper>
-					<Wrapper anchor="team">
+					</CustomWrapper>
+					<CustomWrapper anchor="team">
 						<Team />
-					</Wrapper>
-					<Wrapper anchor="contact">
+					</CustomWrapper>
+					<CustomWrapper anchor="contact">
 						<Contact />
-					</Wrapper>
+					</CustomWrapper>
 				</Box>
 			</div>
 		</ThemeProvider>

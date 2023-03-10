@@ -4,7 +4,7 @@ import {
 	Box,
 } from "@mui/material";
 import $ from 'jquery';
-import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle, imgIconStyle } from "./styles/GameStyles";
+import { dragContainerStyle, dropContainerStyle, dropZoneStyle, draggableStyle, imgIconStyle } from "../styles/GameStyles";
 import { useEffect } from "react";
 import forwardImg from '/src/assets/blocks-icons/Forward.png'
 import leftImg from '/src/assets/blocks-icons/Left.png'
