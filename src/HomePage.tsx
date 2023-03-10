@@ -42,8 +42,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Team from "./components/team/Team";
 import { Link } from "react-router-dom";
-const url = "https://sequency.us17.list-manage.com/subscribe/post?u=20731daf6bdd5bf1a788885e0&amp;id=927bd8923a&amp;f_id=00ad55e0f0";
+const url = "https:sequency.us17.list-manage.com/subscribe/post?u=20731daf6bdd5bf1a788885e0&amp;id=927bd8923a&amp;f_id=00ad55e0f0";
 import CustomWrapper from "./components/CustomWrapperComponent";
+import VideoCard from "./components/VideoCardComponent";
 
 
 const theme = createTheme({
@@ -361,7 +362,7 @@ const Contact = () => {
 						value={
 							<>
 								<a
-									href="https://www.instagram.com/sequency.me/"
+									href="https:www.instagram.com/sequency.me/"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -391,7 +392,7 @@ const Contact = () => {
 						value={
 							<>
 								<a
-									href="https://linkedin.com/company/we-are-sequency"
+									href="https:linkedin.com/company/we-are-sequency"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -431,20 +432,20 @@ function HomePage() {
 						paddingBottom: "60px",
 					}}
 				>
-					<CustomWrapper anchor="home">
-						<Element
+					{/* <CustomWrapper anchor="home"> */}
+						{/* <Element
 							buttonColor="#2C5EAF"
 							reverse={false}
 							image={WatiCar}
-							// title="Bienvenue chez Sequency 👋 !"
+							 title="Bienvenue chez Sequency 👋 !"
 							title="Apprendre le code sans écran ? C'est possible avec Sequency !"
 
 							description="notre mission est claire : apporter à l'enfant toutes les clés de réussite dans un monde ultra-connecté."
-						/>
-						<CustomWrapper anchor="">
+						/> */}
+						{/* <CustomWrapper anchor="">
 							<Grid container sx={{ display: " flex", justifyContent: "center" }}>
 								<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
-									<Typography variant="h4" sx={{marginTop:"0.6em", width: "90%", fontFamily: "Llewie" }}>
+									<Typography variant="h4" sx={{ marginTop: "0.6em", width: "90%", fontFamily: "Llewie" }}>
 										Avec Sequency, la programmation devient un jeu d'enfant grâce à des blocs connectables et intuitifs.
 										<Typography variant="subtitle1" sx={{ marginTop: "1.5em", fontFamily: "Poppins", fontWeight: "500", fontSize: "0.5em" }}>
 											les enfants peuvent manipuler les blocs de programmation avec leurs mains et les explorer sous tous les angles, ce qui rend l'apprentissage de la logique informatique encore plus concret et amusant.
@@ -465,106 +466,118 @@ function HomePage() {
 									<VideoCard image={LosBlockos} />
 								</Grid>
 							</Grid>
-						</CustomWrapper>
+						</CustomWrapper> */}
 
-						<CustomWrapper anchor="">
-							<Grid container sx={{ display: " flex", justifyContent: "center" }}>
-								<Grid item xs={12} sm={4} sx={{ display: "flex", justifyContent: "center" }}>
-									<VideoCard image={LosBlockosConnectos}/>
-								</Grid>
-								<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
-									<Typography variant="h4" sx={{marginTop:"0.6em", width: "90%", fontFamily: "Llewie" }}>
-										Créez des programmes en connectant des blocs ! 🤖💡
-										<Typography variant="subtitle1" sx={{ marginTop: "1.5em", fontFamily: "Poppins", fontWeight: "500", fontSize: "0.5em" }}>
-										En connectant les blocs entre eux, les enfants peuvent créer des séquences de programmation personnalisées et voir leur robot réaliser chaque commande dans l'ordre. Cela développe leur créativité et leur capacité à résoudre des problèmes de manière logique.
-										</Typography>
-										<Button
-											sx={{ marginTop: "1em", backgroundColor: "#FFFFF" }}
-											component="a"
-											href="#contact"
-											size="large"
-											variant="contained"
-										>
-											Je veux Sequency !
-										</Button>
-									</Typography>
-								</Grid>
-							</Grid>
-						</CustomWrapper>
+						<VideoCard
+							description="les enfants peuvent manipuler les blocs de programmation avec leurs mains et les explorer sous tous les angles, ce qui rend l'apprentissage de la logique informatique encore plus concret et amusant."
+							title="Avec Sequency, la programmation devient un jeu d'enfant grâce à des blocs connectables et intuitifs."
+							video={LosBlockos}
+							anchor="" />
 
-						<CustomWrapper anchor="">
-							<Grid container sx={{ display: " flex", justifyContent: "center" }}>
-								<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
-									<Typography variant="h4" sx={{marginTop:"0.6em", width: "90%", fontFamily: "Llewie" }}>
-										Laissez votre enfant voir concrètement les résultats de son travail avec Sequency !
-										<Typography variant="subtitle1" sx={{ marginTop: "1.5em", fontFamily: "Poppins", fontWeight: "500", fontSize: "0.5em" }}>
-											Une fois le programme prêt, il suffit de le lancer et de voir le robot se mettre en mouvement ! Les enfants peuvent suivre leur robot et s'amuser à observer les résultats de leur travail en temps réel, ce qui les encourage à continuer, à apprendre et à explorer.
-										</Typography>
-										<Button
-											sx={{ marginTop: "1em", backgroundColor: "#82B6FF" }}
-											component="a"
-											href="#contact"
-											size="large"
-											variant="contained"
-										>
-											Je veux Sequency !
-										</Button>
-									</Typography>
-
-								</Grid>
-								<Grid item xs={12} sm={4} sx={{ display: "flex", justifyContent: "center" }}>
-									<VideoCard image={LETSGOOOBLOCKOS}/>
-								</Grid>
-							</Grid>
-						</CustomWrapper>
-
-						<Grid container>
-							<Grid item xs={12} sm={4} sx={{ display: " flex", justifyContent: "center" }}>
-								<GameLink />
-							</Grid>
-							<Grid item xs={12} sm={8} sx={{ display: " flex", justifyContent: "center" }}>
-								<MailchimpSubscribe
-									url={url}
-									render={({ subscribe, status, message }) => (
-										<SubscribeForm status={status ? status : ""} message={message ? message : ""}
-											onValidated={(formData: EmailFormFields) => subscribe(formData)}
-										/>
-
-									)}
-								/>
-							</Grid>
-
-						</Grid>
-
-					</CustomWrapper>
-					<CustomWrapper anchor="values">
-						<Element
-							buttonColor="#FFD372"
-							reverse={true}
-							image={anim2Img}
-							title="S'amuser tout en apprenant"
-							description="Avec Sequency, les enfants peuvent apprendre les concepts de base de la logique informatique de manière ludique et interactive grâce à notre solution innovante composée d'un robot et de blocs connectables."
+						<VideoCard
+							description="En connectant les blocs entre eux, les enfants peuvent créer des séquences de programmation personnalisées et voir leur robot réaliser chaque commande dans l'ordre. Cela développe leur créativité et leur capacité à résoudre des problèmes de manière logique."
+							title="Créez des programmes en connectant des blocs ! 🤖💡"
+							video={LosBlockosConnectos} anchor=""
 						/>
-					</CustomWrapper>
-					<CustomWrapper anchor="">
-						<Element
-							buttonColor="#6BC678"
-							reverse={false}
-							image={anim1Img}
-							title="Difficulté évolutive."
-							description="Le plateau de jeu Sequency s'adapte parfaitement au niveau intellectuel de l'enfant, il permet également d'explorer de nouveaux concepts logiques."
-						/>
-					</CustomWrapper>
-					<CustomWrapper anchor="team">
-						<Team />
-					</CustomWrapper>
-					<CustomWrapper anchor="contact">
-						<Contact />
-					</CustomWrapper>
-				</Box>
-			</div>
-		</ThemeProvider>
-	)
+
+											 {/* <CustomWrapper anchor="">
+											 	<Grid container sx={{ display: " flex", justifyContent: "center" }}>
+											 		<Grid item xs={12} sm={4} sx={{ display: "flex", justifyContent: "center" }}>
+											 			<VideoCard image={LosBlockosConnectos} />
+											 		</Grid>
+											 		<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
+											 			<Typography variant="h4" sx={{ marginTop: "0.6em", width: "90%", fontFamily: "Llewie" }}>
+											 				Créez des programmes en connectant des blocs ! 🤖💡
+											 				<Typography variant="subtitle1" sx={{ marginTop: "1.5em", fontFamily: "Poppins", fontWeight: "500", fontSize: "0.5em" }}>
+											 				En connectant les blocs entre eux, les enfants peuvent créer des séquences de programmation personnalisées et voir leur robot réaliser chaque commande dans l'ordre. Cela développe leur créativité et leur capacité à résoudre des problèmes de manière logique.
+											 				</Typography>
+											 				<Button
+											 					sx={{ marginTop: "1em", backgroundColor: "#FFFFF" }}
+											 					component="a"
+											 					href="#contact"
+											 					size="large"
+											 					variant="contained"
+											 				>
+											 					Je veux Sequency !
+											 				</Button>
+											 			</Typography>
+											 		</Grid>
+											 	</Grid>
+											 </CustomWrapper>
+
+									 		<CustomWrapper anchor="">
+									 		<Grid container sx={{ display: " flex", justifyContent: "center" }}>
+									 			<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
+									 				<Typography variant="h4" sx={{ marginTop: "0.6em", width: "90%", fontFamily: "Llewie" }}>
+									 					Laissez votre enfant voir concrètement les résultats de son travail avec Sequency !
+									 					<Typography variant="subtitle1" sx={{ marginTop: "1.5em", fontFamily: "Poppins", fontWeight: "500", fontSize: "0.5em" }}>
+									 						Une fois le programme prêt, il suffit de le lancer et de voir le robot se mettre en mouvement ! Les enfants peuvent suivre leur robot et s'amuser à observer les résultats de leur travail en temps réel, ce qui les encourage à continuer, à apprendre et à explorer.
+									 					</Typography>
+									 					<Button
+									 						sx={{ marginTop: "1em", backgroundColor: "#82B6FF" }}
+									 						component="a"
+									 						href="#contact"
+									 						size="large"
+									 						variant="contained"
+									 					>
+									 						Je veux Sequency !
+									 					</Button>
+									 				</Typography>
+
+									 			</Grid>
+									 			<Grid item xs={12} sm={4} sx={{ display: "flex", justifyContent: "center" }}>
+									 				<VideoCard image={LETSGOOOBLOCKOS} />
+									 			</Grid>
+									 		</Grid>
+									 	</CustomWrapper>
+
+									 	<Grid container>
+									 		<Grid item xs={12} sm={4} sx={{ display: " flex", justifyContent: "center" }}>
+									 			<GameLink />
+									 		</Grid>
+									 		<Grid item xs={12} sm={8} sx={{ display: " flex", justifyContent: "center" }}>
+									 			<MailchimpSubscribe
+									 				url={url}
+									 				render={({ subscribe, status, message }) => (
+									 					<SubscribeForm status={status ? status : ""} message={message ? message : ""}
+									 						onValidated={(formData: EmailFormFields) => subscribe(formData)}
+									 					/>
+
+									 				)}
+									 			/>
+									 		</Grid>
+
+									 	</Grid>
+
+									 </CustomWrapper>
+									 <CustomWrapper anchor="values">
+									 	<Element
+									 		buttonColor="#FFD372"
+									 		reverse={true}
+									 		image={anim2Img}
+									 		title="S'amuser tout en apprenant"
+									 		description="Avec Sequency, les enfants peuvent apprendre les concepts de base de la logique informatique de manière ludique et interactive grâce à notre solution innovante composée d'un robot et de blocs connectables."
+									 	/>
+									 </CustomWrapper>
+									 <CustomWrapper anchor="">
+									 	<Element
+									 		buttonColor="#6BC678"
+									 		reverse={false}
+									 		image={anim1Img}
+									 		title="Difficulté évolutive."
+									 		description="Le plateau de jeu Sequency s'adapte parfaitement au niveau intellectuel de l'enfant, il permet également d'explorer de nouveaux concepts logiques."
+									 	/>
+									 </CustomWrapper>
+									 <CustomWrapper anchor="team">
+									 	<Team />
+									 </CustomWrapper>
+									 <CustomWrapper anchor="contact">
+									 	<Contact />
+									 </CustomWrapper> */}
+		</Box>
+							</div >
+						</ThemeProvider >
+						)
 };
 
 export default HomePage;

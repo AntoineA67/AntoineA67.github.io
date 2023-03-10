@@ -4,22 +4,36 @@ import {
 	Grid,
 	Typography,
 	Button,
+	Box
 } from "@mui/material";
-
 import CustomWrapper from '../components/CustomWrapperComponent';
 
 type VideoCardProps = {
-	image: any;
+	video: string;
+	title: string;
+	description: string;
+	anchor: string;
 };
 
 const VideoCard: FC<VideoCardProps> = (props) => {
 	return (
-		<CustomWrapper anchor="">
+		<Box component="div"
+			id={props.anchor}
+			sx={{
+				minHeight: "100vh",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+		>
 			<Grid container sx={{ display: " flex", justifyContent: "center" }}>
 				<Grid item xs={12} sm={6} sx={{ display: " flex", justifyContent: "center" }}>
 					<Typography variant="h4" sx={{marginTop:"0.6em", width: "90%", fontFamily: "Llewie" }}>
+						{props.title}
 						Avec Sequency, la programmation devient un jeu d'enfant grâce à des blocs connectables et intuitifs.
 						<Typography variant="subtitle1" sx={{ marginTop: "1.5em", fontFamily: "Poppins", fontWeight: "500", fontSize: "0.5em" }}>
+							{props.description}
 							les enfants peuvent manipuler les blocs de programmation avec leurs mains et les explorer sous tous les angles, ce qui rend l'apprentissage de la logique informatique encore plus concret et amusant.
 						</Typography>
 						<Button
@@ -39,10 +53,12 @@ const VideoCard: FC<VideoCardProps> = (props) => {
 					component="video"
 					autoPlay
 					loop
-					image={props.image}
+					image={props.video}
 				/>
 				</Grid>
 			</Grid>
-		</CustomWrapper>
+		</Box>
 	);
 };
+
+export default VideoCard;
