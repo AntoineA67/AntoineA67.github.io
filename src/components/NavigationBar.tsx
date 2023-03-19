@@ -18,9 +18,10 @@ type Section = {
 };
 export const NavigationBar = () => {
 	const sections: Section[] = [
-		{ title: "Nos valeurs", anchor: "values" },
+		{ title: "Newsletter", anchor: "newsletter" },
 		{ title: "L'équipe", anchor: "team" },
 		{ title: "Contact", anchor: "contact" },
+		{ title: "Jeu", anchor: "game" },
 	];
 	const [drawer, setDrawer] = useState<boolean>(false);
 

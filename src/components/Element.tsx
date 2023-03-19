@@ -48,14 +48,14 @@ const Element: FC<ElementProps> = (props) => {
 						<Typography variant="h4" sx={{ fontFamily: "Llewie" }}>
 							{props.title}
 						</Typography>
-						<Typography variant="subtitle1" sx={{ fontWeight: "500", fontSize: "17px", paddingTop: "14px", lineHeight: "1.5" }}>
+						<Typography variant="body1" sx={{ fontWeight: "500", fontSize: "1rem", paddingTop: "14px", lineHeight: "1.5" }}>
 							{props.description}
 						</Typography>
 						<Box component="div" sx={{ display: "flex", flexDirection: "row" }}>
 							<Button
 								sx={{ backgroundColor: "#82B6FF", borderRadius: "3em" }}
 								component="a"
-								href="#contact"
+								href="#newsletter"
 								size="large"
 								variant="contained"
 								
