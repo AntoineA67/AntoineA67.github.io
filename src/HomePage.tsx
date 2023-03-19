@@ -1,19 +1,7 @@
 import { useEffect } from "react";
 import "./styles/App.css";
 import { Box } from "@mui/system";
-import MailchimpSubscribe, { EmailFormFields } from "react-mailchimp-subscribe";
-
-import {
-	Grid,
-	CardMedia,
-} from "@mui/material";
-
-import anim1Img from "./assets/anim/1.png";
-import anim2Img from "./assets/anim/2.png";
-import anim3Img from "./assets/anim/3.png";
-import kidsBlocks from "./assets/Kids Blocks.png"
 import Background from "./assets/background.svg";
-import ELBlockosAndPlata from "./assets/ELBlockosAndPlata.png"
 import WatiCar from "./assets/Wati-Car.png"
 
 import LosBlockos from "./assets/Videos/LosBlockos.mp4";
@@ -23,11 +11,8 @@ import LETSGOOOBLOCKOS from "./assets/Videos/LETSGOOOBLOCKOS.mp4"
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Team from "./components/team/Team";
 import CustomWrapper from "./components/CustomWrapperComponent";
-import VideoElement from "./components/VideoElement";
+import Element from "./components/Element";
 import { NavigationBar } from "./components/NavigationBar";
-import { Element } from "./components/Element";
-import { GameLink } from "./GameLink";
-import { SubscribeForm } from "./SubscribeForm";
 import { Contact } from "./Contact";
 import { SubscribePlusGameLink } from "./components/SubscribePlusGameLink";
 
@@ -81,7 +66,7 @@ function HomePage() {
 					</CustomWrapper>
 			
 					<CustomWrapper anchor="test">
-						<VideoElement
+						<Element
 							buttonColor="#2C5EAF"
 							reverse={true}
 							description="les enfants peuvent manipuler les blocs de programmation avec leurs mains et les explorer sous tous les angles, ce qui rend l'apprentissage de la logique informatique encore plus concret et amusant."
@@ -89,7 +74,7 @@ function HomePage() {
 							video={LosBlockos} />
 					</CustomWrapper>
 					<CustomWrapper anchor="test">
-						<VideoElement
+						<Element
 							buttonColor="#2C5EAF"
 							reverse={false}
 							description="En connectant les blocs entre eux, les enfants peuvent créer des séquences de programmation personnalisées et voir leur robot réaliser chaque commande dans l'ordre. Cela développe leur créativité et leur capacité à résoudre des problèmes de manière logique."
@@ -97,7 +82,7 @@ function HomePage() {
 							video={LosBlockosConnectos} />
 					</CustomWrapper>
 					<CustomWrapper anchor="test">
-						<VideoElement
+						<Element
 							buttonColor="#2C5EAF"
 							reverse={true}
 							description="Une fois le programme prêt, il suffit de le lancer et de voir le robot se mettre en mouvement ! Les enfants peuvent suivre leur robot et s'amuser à observer les résultats de leur travail en temps réel, ce qui les encourage à continuer, à apprendre et à explorer."						

@@ -13,11 +13,11 @@ const CustomWrapper: FC<CustomWrapperProps> = (props) => {
 			id={props.anchor}
 			sx={{
 				py: {
-					xs: 10,
-					sm: 2,
+					xs: 5,
+					md: 5,
 				},
 				// px: 2,
-				minHeight: "100vh",
+				// minHeight: {md: "100vh"},
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "center",
