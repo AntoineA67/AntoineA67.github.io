@@ -9,13 +9,20 @@ type CustomWrapperProps = {
 const CustomWrapper: FC<CustomWrapperProps> = (props) => {
 	return (
 		<Box component="div"
+			
 			id={props.anchor}
 			sx={{
+				py: {
+					xs: 10,
+					sm: 2,
+				},
+				// px: 2,
 				minHeight: "100vh",
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "center",
 				alignItems: "center",
+
 			}}
 		>
 			{props.children}
