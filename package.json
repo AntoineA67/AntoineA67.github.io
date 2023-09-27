@@ -9,15 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.10.14",
-    "@mui/material": "^5.10.14",
-    "@react-three/drei": "^9.54.0",
-    "@react-three/fiber": "^8.10.1",
-    "@react-three/postprocessing": "^2.7.0",
+    "@mui/material": "^5.14.11",
+    "@pmndrs/assets": "^1.6.0",
+    "@react-three/drei": "^9.85.1",
+    "@react-three/fiber": "^8.14.3",
+    "@react-three/postprocessing": "^2.15.1",
     "@types/react-router-dom": "^5.3.3",
-    "@types/three": "^0.148.0",
+    "@types/three": "^0.148.1",
     "gsap": "^3.11.4",
     "jquery": "^3.6.3",
     "react": "^18.2.0",
@@ -27,7 +28,7 @@
     "react-parallax-hover": "^2.0.2",
     "react-parallax-tilt": "^1.7.69",
     "react-router-dom": "^6.7.0",
-    "three": "^0.148.0",
+    "three": "^0.156.1",
     "vite-plugin-svgr": "^2.2.2"
   },
   "devDependencies": {
