@@ -10,9 +10,10 @@ import { Game } from '../Game'
 import { ResetTextModel } from './models/ResetTextModel'
 import { StartTextModel } from './models/StartTextModel'
 import { Box, Typography, Backdrop, CircularProgress } from '@mui/material'
-import { suspend } from 'suspend-react'
+import dawn from '@pmndrs/assets/hdri/dawn.exr'
+// import { suspend } from 'suspend-react'
 
-const dawn = import('@pmndrs/assets/hdri/dawn.exr').then((module) => module.default)
+// const dawn = import('@pmndrs/assets/hdri/dawn.exr').then((module) => module.default)
 
 const canvasStyle = {
 	width: "100vw",
@@ -313,7 +314,7 @@ export default function Game3D() {
 					{/* <Cloud scale={.1} position={[-1, 2, -3]} />
 					<Cloud scale={.1} position={[2, 1.5, 2]} /> */}
 					<ContactShadows position={[.2, -1.5, 0.2]} opacity={0.75} scale={10} blur={2.5} far={3} />
-					<Environment files={suspend(dawn)} />
+					<Environment files={dawn} />
 				</Canvas>
 			</Suspense>
 			<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
