@@ -63,8 +63,8 @@ function HomePage() {
 					sx={{
 						backgroundImage: `url(${Background})`,
 						backgroundSize: "cover",
-						paddingTop: {md: "60px", xs: "30px"},
-						paddingBottom: {md: "60px"},
+						paddingTop: { md: "60px", xs: "30px" },
+						paddingBottom: { md: "60px" },
 					}}
 				>
 					{/* <Parallax bgImage={Background} strength={2000} blur={{ min: -5, max: 5 }}> */}

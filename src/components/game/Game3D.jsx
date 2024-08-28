@@ -10,10 +10,9 @@ import { Game } from '../../Pages/Game'
 import { ResetTextModel } from '../models/ResetTextModel'
 import { StartTextModel } from '../models/StartTextModel'
 import { Box, Typography, Backdrop, CircularProgress } from '@mui/material'
-
 const canvasStyle = {
 	width: "100vw",
-  	height: "100vh",
+	height: "100vh",
 	// opacity: 0,
 	touchAction: "none"
 	// margin: 0,
@@ -60,7 +59,7 @@ function Voiture(props) {
 	const [hoveredStart, hoverStart] = useState(false)
 	const [hoveredReset, hoverReset] = useState(false)
 	const [camRig, setCamRig] = useState(true)
-	
+
 	const [mapPos, setMapPos] = useState("02")
 	const [mapRot, setMapRot] = useState(0)
 
@@ -76,7 +75,7 @@ function Voiture(props) {
 
 	const dict = {
 		"02": ["12"],
-		"12": ["02","13", "22"],
+		"12": ["02", "13", "22"],
 		"13": ["12", "23"],
 		"23": ["13", "33"],
 		"22": ["12", "21", "32"],
@@ -185,7 +184,7 @@ function Voiture(props) {
 					setMapRot((mapRot + 1) % 4)
 					setTempRot([tempRot[0], tempRot[1] - Math.PI / 2, tempRot[2]])
 					break;
-				
+
 				default:
 					break;
 			}
@@ -254,7 +253,7 @@ function Voiture(props) {
 				onClick={() => resetGame()}
 				onPointerOut={(e) => hoverReset(false)}
 				onPointerOver={(event) => hoverReset(true)}>
-				<ResetTextModel position={[0, 0, -.7]} castShadow={true}/>
+				<ResetTextModel position={[0, 0, -.7]} castShadow={true} />
 				<meshStandardMaterial color={hoveredReset ? 0xE7854F : 'yellow'} />
 				<boxGeometry args={[.5, .5, .5]} />
 			</mesh>
@@ -263,12 +262,12 @@ function Voiture(props) {
 				onClick={() => startGame()}
 				onPointerOut={(e) => hoverStart(false)}
 				onPointerOver={(event) => hoverStart(true)}>
-				<StartTextModel position={[0, 0, -.7]}/>
+				<StartTextModel position={[0, 0, -.7]} />
 				<boxGeometry args={[.5, .5, .5]} />
 				<meshStandardMaterial color={hoveredStart ? 0x3B70E7 : 'blue'} />
 			</mesh>
 			<mesh ref={myMesh}>
-				<VoitureModel/>
+				<VoitureModel />
 			</mesh>
 		</>
 	)
@@ -277,7 +276,7 @@ function Voiture(props) {
 
 export default function Game3D() {
 
-	useEffect( () => {
+	useEffect(() => {
 		var html = document.querySelector('html')
 		if (html) {
 			html.style.overflow = "hidden"
@@ -286,23 +285,22 @@ export default function Game3D() {
 		if (body) {
 			body.style.overflow = "hidden"
 			body.style.background = "#2d4967";
-		}	
+		}
 	})
 
 	return (
 		<>
 			<Suspense fallback={
-					<CircularProgress color="info" size="4em" style={{position: "absolute", top: "50%", left: "50%"}} />
-				}>
-				<Canvas dpr={[1, 2]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20}}>
-					<Terrain2Model scale={1}/>
+				<CircularProgress color="info" size="4em" style={{ position: "absolute", top: "50%", left: "50%" }} />
+			}>
+				<Canvas dpr={[1, 2]} eventSource={document.getElementById('root')} style={canvasStyle} camera={{ position: [cameraOffset.x, cameraOffset.y, cameraOffset.z], fov: 20 }}>
+					<Terrain2Model scale={1} />
 					<Voiture />
 					{/* <Grid renderOrder={-1} position={[0, -1, 0]} infiniteGrid cellSize={0.6} cellThickness={0.6} sectionSize={3.3} sectionThickness={1.5} sectionColor={[0.5, 0.5, 10]} fadeDistance={30} /> */}
 					{/* <OrbitControls autoRotate autoRotateSpeed={0.5} makeDefault minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
-					<EffectComposer disableNormalPass>
+					<EffectComposer>
+						{/* <Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0} intensity={.2} /> */}
 
-						<Bloom luminanceThreshold={.6} mipmapBlur luminanceSmoothing={0} intensity={.2} />
-						{/* <DepthOfField target={[0, 0, 0]} focalLength={0.3} bokehScale={10} height={700} /> */}
 					</EffectComposer>
 					<ambientLight intensity={0.45} />
 					{/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} shadow-mapSize={[512, 512]} castShadow /> */}
@@ -314,9 +312,9 @@ export default function Game3D() {
 				</Canvas>
 			</Suspense>
 			<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-			{/* <Button sx={{margin: 2}} size="large" variant="contained" onClick={startGame} >Start</Button>
+				{/* <Button sx={{margin: 2}} size="large" variant="contained" onClick={startGame} >Start</Button>
 			<Button sx={{margin: 2}} size="large" variant="contained" onClick={resetGame} >Reset</Button> */}
-			<Game />
+				<Game />
 			</div>
 		</>
 	);

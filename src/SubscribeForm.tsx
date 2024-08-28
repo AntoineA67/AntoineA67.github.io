@@ -48,9 +48,9 @@ export const SubscribeForm: FC<SubscribeFormProps> = (props) => {
 						Nous vous enverrons les avancées du projet 🔬<br />
 						Vous aurez droit à une réduction lorsque le produit sera disponible!
 					</Typography>
-					<TextField sx={{ width: {xs: "100%", md: "50%"} }} id="outlined-basic-prenom" label="Prénom" variant="outlined" onChange={(newValue) => setTFValue(newValue.target.value)} />
-					<TextField sx={{ width: {xs: "100%", md: "50%"} }} id="outlined-basic" label="Email" variant="outlined" onChange={(newValue) => setTFValue(newValue.target.value)} />
-					<Button sx={{ width: {xs: "100%", md: "50%"}, textTransform: 'none' }} id="send-mail" variant="contained" onClick={submit}>Je veux Sequency</Button>
+					{/* <TextField sx={{ width: {xs: "100%", md: "50%"} }} id="outlined-basic-prenom" label="Prénom" variant="outlined" onChange={(newValue) => setTFValue(newValue.target.value)} /> */}
+					<TextField sx={{ width: {xs: "100%", md: "100%"} }} id="outlined-basic" label="Email" variant="outlined" onChange={(newValue) => setTFValue(newValue.target.value)} />
+					<Button sx={{ mb:2, width: {xs: "100%", md: "100%"}, textTransform: 'none' }} id="send-mail" variant="contained" onClick={submit}>Je veux Sequency</Button>
 				</Grid>
 			</Grid>
 		</Card>
